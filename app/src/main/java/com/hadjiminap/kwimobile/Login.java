@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -19,17 +20,23 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -132,12 +139,15 @@ public class Login extends Activity
 
     public  String postrequest()
     {
+        //Setup TAG for error logging
+        final String TAG = "LoginActivity";
+
          EditText usr = (EditText) findViewById(R.id.editTextname);
          EditText pwd = (EditText) findViewById(R.id.editTextpwd);
-         String returntoken = null;
+         String tokenfrompost = null;
 
         //Create client
-        HttpClient httpClient = new DefaultHttpClient();
+        HttpClient httpClientpost = new DefaultHttpClient();
         // Set URL
         HttpPost httpPost = new HttpPost("www.example.com");
 
@@ -146,37 +156,73 @@ public class Login extends Activity
         nameValuePair.add(new BasicNameValuePair("id", usr.getText().toString()));
         nameValuePair.add(new BasicNameValuePair("password", pwd.getText().toString()));
 
-
-        //Encoding POST data
         try
         {
+            HttpResponse response = httpClientpost.execute(httpPost);
             httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair));
-        } catch (UnsupportedEncodingException e)
-        {
-            // log exception
-            e.printStackTrace();
-        }
 
-        //making POST request.
-        try
-        {
-            HttpResponse response = httpClient.execute(httpPost);
             //get response token
-            returntoken = response.toString();
+            tokenfrompost = response.toString();
         }
-        catch (ClientProtocolException e)
+        catch (Exception e)
         {
-            // Log exception
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            // Log exception
-            e.printStackTrace();
+            Log.e(TAG,"Error in postrequest");
         }
 
-        return returntoken;
+        return tokenfrompost;
 
-    }//hello
+    }
+
+    public String getrequest (String token)
+    {
+        //Setup TAG for error logging
+        final String TAG = "LoginActivity";
+
+        //Create client
+        HttpClient httpClientget = new DefaultHttpClient();
+        // Set URL
+        HttpGet httpGet = new HttpGet("www.example.com");
+
+        //Add token to header
+        httpGet.addHeader("token", token);
+        //Setup Variables
+        InputStream inputStream = null;
+        String jsondata = null;
+
+        try {
+
+            HttpResponse response = httpClientget.execute(httpGet);
+            HttpEntity entity = response.getEntity();
+            inputStream = entity.getContent();
+
+            // json is UTF-8 by default
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"), 8);
+            StringBuilder builder = new StringBuilder();
+
+            String line = null;
+            while ((line = reader.readLine()) != null)
+            {
+                builder.append(line + "\n");
+            }
+            jsondata = builder.toString();
+        }
+        catch (Exception e)
+        {
+            Log.e(TAG,"Error in postrequest");
+        }
+        finally
+        {
+            try
+            {
+                if(inputStream != null)inputStream.close();
+            }
+            catch(Exception squish){}
+        }
+
+        return jsondata;
+
+
+    }
 
     //OnClick
     public void OnLoginClick(View v)
@@ -217,8 +263,7 @@ public class Login extends Activity
             }
 
             String token = new String(postrequest());
-
-            getJson(token);
+            String JSON = new String (getrequest(token));
 
             return null;
         }
