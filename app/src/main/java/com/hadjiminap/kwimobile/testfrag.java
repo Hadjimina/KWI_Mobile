@@ -1,17 +1,11 @@
 package com.hadjiminap.kwimobile;
 
 import android.app.Fragment;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * Created by philipp on 8/10/14.
- */
 public class testfrag extends Fragment
 {
 

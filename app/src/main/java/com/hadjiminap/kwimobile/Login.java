@@ -2,9 +2,7 @@ package com.hadjiminap.kwimobile;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
-import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -15,30 +13,26 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.PrintWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.Scanner;
 
 
 public class Login extends Activity
@@ -79,19 +73,18 @@ public class Login extends Activity
            {
               String input = usr.getText().toString();
 
-               if (hasFocususr == true)
+               if (hasFocususr)
                {
                     usr.setBackgroundDrawable(getResources().getDrawable(R.drawable.apptheme_textfield_activated_holo_light));
                     usr.setText("");
                }
-               else if (hasFocususr == false)
+               else
                {
                    usr.setBackgroundDrawable(getResources().getDrawable(R.drawable.apptheme_textfield_focused_holo_light));
 
                    if(TextUtils.isEmpty(input))
                    {
                    usr.setText("Benutzername");
-                   return;
                    }
                }
 
@@ -105,19 +98,18 @@ public class Login extends Activity
             {
                 String input = pwd.getText().toString();
 
-                if (hasFocus == true)
+                if (hasFocus)
                 {
                     pwd.setBackgroundDrawable(getResources().getDrawable(R.drawable.apptheme_textfield_activated_holo_light));
                     pwd.setText("");
                 }
-                else if (hasFocus == false)
+                else
                 {
                     pwd.setBackgroundDrawable(getResources().getDrawable(R.drawable.apptheme_textfield_focused_holo_light));
 
                     if(TextUtils.isEmpty(input))
                     {
                         pwd.setText("Passwort");
-                        return;
                     }
                 }
 
@@ -146,29 +138,58 @@ public class Login extends Activity
          EditText pwd = (EditText) findViewById(R.id.editTextpwd);
          String tokenfrompost = null;
 
-        //Create client
-        HttpClient httpClientpost = new DefaultHttpClient();
-        // Set URL
-        HttpPost httpPost = new HttpPost("www.example.com");
-
-        //Key value pairs (Login credentials)
-        List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(2);
-        nameValuePair.add(new BasicNameValuePair("id", usr.getText().toString()));
-        nameValuePair.add(new BasicNameValuePair("password", pwd.getText().toString()));
+        //setup HttpURLConnection
+        URL url;
+        HttpURLConnection conn;
+        String response= null;
 
         try
         {
-            HttpResponse response = httpClientpost.execute(httpPost);
-            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair));
+            url=new URL("https://somesite/somefile.php");
 
-            //get response token
-            tokenfrompost = response.toString();
+            //Encode input
+            String param="user"+ URLEncoder.encode(usr.getText().toString(),"UTF - 8")+
+            "password"+URLEncoder.encode(pwd.getText().toString(),"UTF-8");
+            //Opens connection . url.openConnection will return with https if called on https url
+            conn=(HttpURLConnection)url.openConnection();
+            //Setup Output to "true" => POST
+            conn.setDoOutput(true);
+            //actually unnecessary
+            conn.setRequestMethod("POST");
+
+            //Define length -> android user documentation recomendation
+            conn.setFixedLengthStreamingMode(param.getBytes().length);
+            conn.setRequestProperty("Content- Type", "application/x-www-form-urlencoded");
+
+            //Send POST
+            PrintWriter out = new PrintWriter(conn.getOutputStream());
+            out.print(param);
+            out.close();
+
+         //build the string to store the response text from the server
+         //   String response= "";
+
+         //Listen to stream
+            Scanner inStream = new Scanner(conn.getInputStream());
+
+            while(inStream.hasNextLine())
+                tokenfrompost+=(inStream.nextLine());
+
+        }
+        catch(MalformedURLException ex)
+        {
+            Toast.makeText(Login.this,ex.toString(), Toast.LENGTH_SHORT).show();
+        }
+        catch(IOException ex)
+        {
+
+            Toast.makeText(Login.this,ex.toString(), Toast.LENGTH_SHORT).show();
         }
         catch (Exception e)
         {
             Log.e(TAG,"Error in postrequest");
         }
-
+        //Return token
         return tokenfrompost;
 
     }
@@ -216,7 +237,7 @@ public class Login extends Activity
             {
                 if(inputStream != null)inputStream.close();
             }
-            catch(Exception squish){}
+            catch(Exception squish){ Log.e(TAG,"Error in postrequest");}
         }
 
         return jsondata;
@@ -237,8 +258,6 @@ public class Login extends Activity
     class Async extends AsyncTask<Void, Integer, Void>
     {
         //Pair and setup variable with items
-        TextView tx = (TextView) findViewById(R.id.textView);
-        EditText usr = (EditText) findViewById(R.id.editTextname);
         Button login = (Button) findViewById(R.id.loginbtn);
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
         int progcount;
@@ -262,8 +281,8 @@ public class Login extends Activity
                 SystemClock.sleep(1000);
             }
 
-            String token = new String(postrequest());
-            String JSON = new String (getrequest(token));
+          //  String token = new String(postrequest());
+            //String JSON = new String (getrequest(token));
 
             return null;
         }
