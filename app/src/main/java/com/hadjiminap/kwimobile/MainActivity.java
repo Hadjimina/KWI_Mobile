@@ -71,18 +71,18 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         }
 
 
-       /* LinearLayout ll = (LinearLayout) findViewById(R.id.row1);
-        for (int i = 0; i < ll.getChildCount(); i++)
-        {
-            TextView[] lesson;
-            lesson = new TextView[6];
 
-            if (ll.getChildAt(i).getClass() == TextView.class)
-            {
-                lesson[i] = (TextView)ll.getChildAt(i);
+        TextView[][] tt = new TextView[5][11];
+        //5 days => with 11 lessons per day
+
+        //ERROR WHEN PAIRING ARRAY WITH TIMETABLE
+
+       /* LinearLayout ll = (LinearLayout) findViewById(R.id.row1);
+        for (int i = 0; i < ll.getChildCount(); i++) {
+            if (ll.getChildAt(i).getClass() == TextView.class) {
+                guess1[i] = (TextView)ll.getChildAt(i);
             }
         }
-
 
         //Dummy entries for demo
        /* String Fach1 = "Fach1";
@@ -119,12 +119,12 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
           @Override
           public void onDrawerOpened(View drawerView)
           {
-              Toast.makeText(MainActivity.this," opened", Toast.LENGTH_SHORT).show();
+              //Toast.makeText(MainActivity.this," opened", Toast.LENGTH_SHORT).show();
           }
         };
+
         //Set Drawerlistener
         drawerLayout.setDrawerListener(drawerListener);
-
 
     }
 
