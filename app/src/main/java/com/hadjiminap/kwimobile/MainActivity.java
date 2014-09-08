@@ -20,7 +20,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -72,12 +74,33 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 
 
 
-        TextView[][] tt = new TextView[5][11];
+       /* TextView[][] lesson = new TextView[5][11];
+
+        String Zimmer1 = "Zimmer1";
+        String Fach1 = "Fach1";
+
+        TableLayout ll = (TableLayout) findViewById(R.id.tablelayout);
+
+        for (int hour = 0; hour < 11; hour++)
+        {
+
+
+            for (int day = 0; day < 5; day++)
+            {
+
+                lesson[hour][day] = new TextView(this); // <===== initialisierung
+                lesson[hour][day] = (TextView) ll.getChildAt(day);
+
+                lesson[hour][day].setText(Html.fromHtml("<b>" + Fach1 + "</b>" + "<br />" +
+                        "<small>" + Zimmer1 + "</small>" + "<br />"));
+            }
+        }
+
         //5 days => with 11 lessons per day
 
         //ERROR WHEN PAIRING ARRAY WITH TIMETABLE
 
-       /* LinearLayout ll = (LinearLayout) findViewById(R.id.row1);
+     /*   LinearLayout ll = (LinearLayout) findViewById(R.id.row1);
         for (int i = 0; i < ll.getChildCount(); i++) {
             if (ll.getChildAt(i).getClass() == TextView.class) {
                 guess1[i] = (TextView)ll.getChildAt(i);
@@ -85,8 +108,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         }
 
         //Dummy entries for demo
-       /* String Fach1 = "Fach1";
-        String Zimmer1 = "Zimmer1";
+       /*
 
         for (int hour = 0; hour < 11; hour++)
         {
