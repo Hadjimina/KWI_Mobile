@@ -1,5 +1,6 @@
 package com.hadjiminap.kwimobile;
 import android.app.Fragment;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -19,7 +20,7 @@ public class Timetable extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState)
     {
         View ret =  inflater.inflate(R.layout.timetable, null);
-
+        Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "font.ttf");
         TableRow tableRow = (TableRow) ret.findViewById(R.id.row2);
 
         ArrayList<TextView> cells = new ArrayList<TextView>();
@@ -30,16 +31,20 @@ public class Timetable extends Fragment
             if (tableRow.getChildAt(i).getClass() == TextView.class)
             {
                 cells.add((TextView)tableRow.getChildAt(i));
+
+
             }
         }
 
         // set titles
         final String zimmer1 = "Zimmer1";
         final String fach1 = "Fach1";
-        for(Iterator<TextView> i = cells.iterator(); i.hasNext(); ) {
+        for(Iterator<TextView> i = cells.iterator(); i.hasNext(); )
+        {
             TextView item = i.next();
             item.setText(Html.fromHtml("<b>" + fach1 + "</b>" + "<br />" +
                     "<small>" + zimmer1 + "</small>" + "<br />"));
+            item.setTypeface(tf);
         }
 
         return ret;

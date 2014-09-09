@@ -70,57 +70,6 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
             actionBarTitleView.setTypeface(tfbar);
         }
 
-
-
-      /*  TextView[][] lesson = new TextView[5][11];
-
-        String Zimmer1 = "Zimmer1";
-        String Fach1 = "Fach1";
-
-        TableLayout ll = (TableLayout) findViewById(R.id.tablelayout);
-
-        for (int hour = 0; hour < 11; hour++)
-        {
-            for (int day = 0; day < 5; day++)
-            {
-
-                lesson[hour][day] = new TextView(this); // <===== initialisierung
-                lesson[hour][day] = (TextView) ll.getChildAt(day);
-
-                lesson[hour][day].setText(Html.fromHtml("<b>" + Fach1 + "</b>" + "<br />" +
-                        "<small>" + Zimmer1 + "</small>" + "<br />"));
-            }
-        }*/
-
-
-
-
-
-
-        //5 days => with 11 lessons per day
-
-        //ERROR WHEN PAIRING ARRAY WITH TIMETABLE
-
-     /*   LinearLayout ll = (LinearLayout) findViewById(R.id.row1);
-        for (int i = 0; i < ll.getChildCount(); i++) {
-            if (ll.getChildAt(i).getClass() == TextView.class) {
-                guess1[i] = (TextView)ll.getChildAt(i);
-            }
-        }
-
-        //Dummy entries for demo
-       /*
-
-        for (int hour = 0; hour < 11; hour++)
-        {
-            for (int day = 0; day < 5; day++)
-            {
-                lesson[hour][day].setText(Html.fromHtml("<b>" + Fach1 + "</b>" + "<br />" +
-                        "<small>" + Zimmer1 + "</small>" + "<br />"));
-            }
-        }*/
-
-
         //Set TimeTable fragment as default fragment
         Fragment newFragment1;
         FragmentManager fm = getFragmentManager();
