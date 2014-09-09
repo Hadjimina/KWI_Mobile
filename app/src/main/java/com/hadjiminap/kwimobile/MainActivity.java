@@ -20,9 +20,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +32,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     private ActionBarDrawerToggle drawerListener;
     private CustomAdapter myAdapter;
     private String[] menus;
+    private TextView[] lesson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -58,7 +57,6 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         getActionBar().setHomeButtonEnabled(true);
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
-
         //Action bar styling
         getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00b796")));
         getActionBar().setDisplayShowHomeEnabled(false);
@@ -74,7 +72,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 
 
 
-       /* TextView[][] lesson = new TextView[5][11];
+      /*  TextView[][] lesson = new TextView[5][11];
 
         String Zimmer1 = "Zimmer1";
         String Fach1 = "Fach1";
@@ -83,8 +81,6 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 
         for (int hour = 0; hour < 11; hour++)
         {
-
-
             for (int day = 0; day < 5; day++)
             {
 
@@ -94,7 +90,12 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
                 lesson[hour][day].setText(Html.fromHtml("<b>" + Fach1 + "</b>" + "<br />" +
                         "<small>" + Zimmer1 + "</small>" + "<br />"));
             }
-        }
+        }*/
+
+
+
+
+
 
         //5 days => with 11 lessons per day
 
@@ -283,4 +284,3 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
             return row;
         }
     }
-
