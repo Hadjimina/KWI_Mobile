@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -17,22 +16,23 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.net.ssl.HttpsURLConnection;
 
 
 public class Login extends Activity
@@ -129,129 +129,93 @@ public class Login extends Activity
 
     }
 
-    public  String postrequest()
+   public String postrequest () throws IOException
+   {
+
+       EditText username = (EditText) findViewById(R.id.editTextname);
+       EditText password = (EditText) findViewById(R.id.editTextpwd);
+
+       URL url = new URL("https://info.kwi.ch/s/timetable/api");
+       HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+       conn.setReadTimeout(10000);
+       conn.setConnectTimeout(15000);
+       conn.setRequestMethod("POST");
+       conn.setDoInput(true);
+       conn.setDoOutput(true);
+
+
+
+       List<NameValuePair> params = new ArrayList<NameValuePair>();
+       params.add(new BasicNameValuePair("username", username.getText().toString()));
+       params.add(new BasicNameValuePair("password", password.getText().toString()));
+
+       OutputStream os = conn.getOutputStream();
+       BufferedWriter writer = new BufferedWriter(
+               new OutputStreamWriter(os, "UTF-8"));
+       writer.write(getQuery(params));
+
+       String result = writer.toString();
+
+       writer.flush();
+       writer.close();
+       os.close();
+
+       conn.connect();
+
+       InputStream response = conn.getInputStream();
+
+       BufferedReader reader = new BufferedReader(new InputStreamReader(response));
+
+       String line = "";
+       String serverResponseMessage = null;
+       while ((line = reader.readLine()) != null)
+       {
+           serverResponseMessage += line;
+       }
+
+       response.close();
+       return result;
+   }
+    private String getQuery(List<NameValuePair> params) throws UnsupportedEncodingException
     {
-        //Setup TAG for error logging
-        final String TAG = "LoginActivity";
+        StringBuilder result = new StringBuilder();
+        boolean first = true;
 
-         EditText usr = (EditText) findViewById(R.id.editTextname);
-         EditText pwd = (EditText) findViewById(R.id.editTextpwd);
-         String tokenfrompost = null;
-
-        //setup HttpURLConnection
-        URL url;
-        HttpURLConnection conn;
-        String response= null;
-
-        try
+        for (NameValuePair pair : params)
         {
-            url=new URL("https://somesite/somefile.php");
+            if (first)
+                first = false;
+            else
+                result.append("&");
 
-            //Encode input
-            String param="user"+ URLEncoder.encode(usr.getText().toString(),"UTF - 8")+
-            "password"+URLEncoder.encode(pwd.getText().toString(),"UTF-8");
-            //Opens connection . url.openConnection will return with https if called on https url
-            conn=(HttpURLConnection)url.openConnection();
-            //Setup Output to "true" => POST
-            conn.setDoOutput(true);
-            //actually unnecessary
-            conn.setRequestMethod("POST");
-
-            //Define length -> android user documentation recomendation
-            conn.setFixedLengthStreamingMode(param.getBytes().length);
-            conn.setRequestProperty("Content- Type", "application/x-www-form-urlencoded");
-
-            //Send POST
-            PrintWriter out = new PrintWriter(conn.getOutputStream());
-            out.print(param);
-            out.close();
-
-         //build the string to store the response text from the server
-         //   String response= "";
-
-         //Listen to stream
-            Scanner inStream = new Scanner(conn.getInputStream());
-
-            while(inStream.hasNextLine())
-                tokenfrompost+=(inStream.nextLine());
-
+            result.append(URLEncoder.encode(pair.getName(), "UTF-8"));
+            result.append("=");
+            result.append(URLEncoder.encode(pair.getValue(), "UTF-8"));
         }
-        catch(MalformedURLException ex)
-        {
-            Toast.makeText(Login.this,ex.toString(), Toast.LENGTH_SHORT).show();
-        }
-        catch(IOException ex)
-        {
-
-            Toast.makeText(Login.this,ex.toString(), Toast.LENGTH_SHORT).show();
-        }
-        catch (Exception e)
-        {
-            Log.e(TAG,"Error in postrequest");
-        }
-        //Return token
-        return tokenfrompost;
-
+        return result.toString();
     }
 
-    public String getrequest (String token)
-    {
-        //Setup TAG for error logging
-        final String TAG = "LoginActivity";
-
-        //Create client
-        HttpClient httpClientget = new DefaultHttpClient();
-        // Set URL
-        HttpGet httpGet = new HttpGet("www.example.com");
-
-        //Add token to header
-        httpGet.addHeader("token", token);
-        //Setup Variables
-        InputStream inputStream = null;
-        String jsondata = null;
-
-        try {
-
-            HttpResponse response = httpClientget.execute(httpGet);
-            HttpEntity entity = response.getEntity();
-            inputStream = entity.getContent();
-
-            // json is UTF-8 by default
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"), 8);
-            StringBuilder builder = new StringBuilder();
-
-            String line = null;
-            while ((line = reader.readLine()) != null)
-            {
-                builder.append(line + "\n");
-            }
-            jsondata = builder.toString();
-        }
-        catch (Exception e)
-        {
-            Log.e(TAG,"Error in postrequest");
-        }
-        finally
-        {
-            try
-            {
-                if(inputStream != null)inputStream.close();
-            }
-            catch(Exception squish){ Log.e(TAG,"Error in postrequest");}
-        }
-
-        return jsondata;
-
-
-    }
 
     //OnClick
     public void OnLoginClick(View v)
     {
-        Button login = (Button) findViewById(R.id.loginbtn);
-        login.setClickable(false);
+        EditText username = (EditText) findViewById(R.id.editTextname);
+        EditText password = (EditText) findViewById(R.id.editTextpwd);
 
-        new Async().execute();
+        if (username.getText().toString() == "Benutzername" )
+        {
+            Toast.makeText(Login.this, "Es wird ein Benutzername und ein Passwort benötigt", Toast.LENGTH_SHORT).show();
+        }
+        else if ( password.getText().toString()== "Passwort")
+        {
+            Toast.makeText(Login.this, "Es wird ein Benutzername und ein Passwort benötigt", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            Button login = (Button) findViewById(R.id.loginbtn);
+            login.setClickable(false);
+            new Async().execute();
+        }
     }
 
 
@@ -272,17 +236,20 @@ public class Login extends Activity
         protected Void doInBackground(Void... params)
         {
            login.setBackgroundColor(getResources().getColor(R.color.btnnormal));
-           //Placeholder for wait time
-           progcount = 0;
-           while (progcount < 1)
-           {
-                progcount++;
 
-                SystemClock.sleep(1000);
+            String JSON = null;
+
+            try
+            {
+                JSON = new String(postrequest());
+                Log.w("MYTAG", JSON);
+                Log.w("MYTAG", "asdf");
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
             }
 
-            //String token = new String(postrequest());
-            //String JSON = new String (getrequest(token));
 
             return null;
         }
