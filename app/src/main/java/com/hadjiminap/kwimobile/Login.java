@@ -66,33 +66,33 @@ public class Login extends Activity
         login.setTypeface(tf);
 
         //Change background when focuschange and set text to empty edittext
-       usr.setOnFocusChangeListener(new View.OnFocusChangeListener()
-       {
-           @Override
-           public void onFocusChange(View v, boolean hasFocususr)
-           {
-              String input = usr.getText().toString();
+        usr.setOnFocusChangeListener(new View.OnFocusChangeListener()
+        {
+            @Override
+            public void onFocusChange(View v, boolean hasFocususr)
+            {
+                String input = usr.getText().toString();
 
-               if (hasFocususr)
-               {
+                if (hasFocususr)
+                {
                     usr.setBackgroundDrawable(getResources().getDrawable(R.drawable.apptheme_textfield_activated_holo_light));
                     usr.setText("");
-               }
-               else
-               {
-                   usr.setBackgroundDrawable(getResources().getDrawable(R.drawable.apptheme_textfield_focused_holo_light));
+                }
+                else
+                {
+                    usr.setBackgroundDrawable(getResources().getDrawable(R.drawable.apptheme_textfield_focused_holo_light));
 
-                   if(TextUtils.isEmpty(input))
-                   {
-                   usr.setText("Benutzername");
-                   }
-               }
+                    if(TextUtils.isEmpty(input))
+                    {
+                        usr.setText("Benutzername");
+                    }
+                }
 
-           }
-       });
+            }
+        });
 
-       pwd.setOnFocusChangeListener(new View.OnFocusChangeListener()
-       {
+        pwd.setOnFocusChangeListener(new View.OnFocusChangeListener()
+        {
             @Override
             public void onFocusChange(View v, boolean hasFocus)
             {
@@ -122,60 +122,59 @@ public class Login extends Activity
             @Override
             public boolean onTouch(View v, MotionEvent event)
             {
-                 login.setBackgroundColor(getResources().getColor(R.color.btnpressed));
+                login.setBackgroundColor(getResources().getColor(R.color.btnpressed));
                 return false;
             }
         });
 
     }
 
-   public String postrequest () throws IOException
-   {
+    public String postrequest () throws IOException
+    {
 
-       EditText username = (EditText) findViewById(R.id.editTextname);
-       EditText password = (EditText) findViewById(R.id.editTextpwd);
+        EditText username = (EditText) findViewById(R.id.editTextname);
+        EditText password = (EditText) findViewById(R.id.editTextpwd);
 
-       URL url = new URL("https://info.kwi.ch/s/timetable/api");
-       HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
-       conn.setReadTimeout(10000);
-       conn.setConnectTimeout(15000);
-       conn.setRequestMethod("POST");
-       conn.setDoInput(true);
-       conn.setDoOutput(true);
+        URL url = new URL("https://info.kwi.ch/s/timetable/api");
+        HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+        conn.setReadTimeout(10000);
+        conn.setConnectTimeout(15000);
+        conn.setRequestMethod("POST");
+        conn.setDoInput(true);
+        conn.setDoOutput(true);
 
 
 
-       List<NameValuePair> params = new ArrayList<NameValuePair>();
-       params.add(new BasicNameValuePair("username", username.getText().toString()));
-       params.add(new BasicNameValuePair("password", password.getText().toString()));
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("username", username.getText().toString()));
+        params.add(new BasicNameValuePair("password", password.getText().toString()));
 
-       OutputStream os = conn.getOutputStream();
-       BufferedWriter writer = new BufferedWriter(
-               new OutputStreamWriter(os, "UTF-8"));
-       writer.write(getQuery(params));
+        OutputStream os = conn.getOutputStream();
+        BufferedWriter writer = new BufferedWriter(
+                new OutputStreamWriter(os, "UTF-8"));
+        writer.write(getQuery(params));
+        Log.w("MYTAG", String.valueOf(writer));
+        writer.flush();
+        writer.close();
+        os.close();
 
-       String result = writer.toString();
+        conn.connect();
 
-       writer.flush();
-       writer.close();
-       os.close();
+        InputStream response = conn.getInputStream();
 
-       conn.connect();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(response));
 
-       InputStream response = conn.getInputStream();
+        String line = "";
+        String serverResponseMessage = null;
+        while ((line = reader.readLine()) != null)
+        {
+            serverResponseMessage += line;
+        }
 
-       BufferedReader reader = new BufferedReader(new InputStreamReader(response));
+        response.close();
+        return serverResponseMessage;
+    }
 
-       String line = "";
-       String serverResponseMessage = null;
-       while ((line = reader.readLine()) != null)
-       {
-           serverResponseMessage += line;
-       }
-
-       response.close();
-       return result;
-   }
     private String getQuery(List<NameValuePair> params) throws UnsupportedEncodingException
     {
         StringBuilder result = new StringBuilder();
@@ -192,6 +191,8 @@ public class Login extends Activity
             result.append("=");
             result.append(URLEncoder.encode(pair.getValue(), "UTF-8"));
         }
+        Log.w("MYTAG", String.valueOf(result));
+
         return result.toString();
     }
 
@@ -201,7 +202,6 @@ public class Login extends Activity
     {
         EditText username = (EditText) findViewById(R.id.editTextname);
         EditText password = (EditText) findViewById(R.id.editTextpwd);
-
         if (username.getText().toString() == "Benutzername" )
         {
             Toast.makeText(Login.this, "Es wird ein Benutzername und ein Passwort benötigt", Toast.LENGTH_SHORT).show();
@@ -214,12 +214,14 @@ public class Login extends Activity
         {
             Button login = (Button) findViewById(R.id.loginbtn);
             login.setClickable(false);
-            new Async().execute();
+            potato(new Async().execute());
         }
+
+
     }
 
 
-    class Async extends AsyncTask<Void, Integer, Void>
+    class Async extends AsyncTask<Void, Integer, String>
     {
         //Pair and setup variable with items
         Button login = (Button) findViewById(R.id.loginbtn);
@@ -233,9 +235,9 @@ public class Login extends Activity
         }
 
         @Override
-        protected Void doInBackground(Void... params)
+        protected String doInBackground(Void... params)
         {
-           login.setBackgroundColor(getResources().getColor(R.color.btnnormal));
+            login.setBackgroundColor(getResources().getColor(R.color.btnnormal));
 
             String JSON = null;
 
@@ -251,11 +253,11 @@ public class Login extends Activity
             }
 
 
-            return null;
+            return JSON;
         }
 
         @Override
-        protected void onPostExecute(Void result)
+        protected void onPostExecute(String result)
         {
             Intent switcher = new Intent(Login.this, MainActivity.class);
             Login.this.startActivity(switcher);

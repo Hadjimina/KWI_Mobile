@@ -1,53 +1,129 @@
 package com.hadjiminap.kwimobile;
+
 import android.app.Fragment;
+import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.io.IOException;
 
 
 public class Timetable extends Fragment
 {
 
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState)
     {
         View ret =  inflater.inflate(R.layout.timetable, null);
         Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "font.ttf");
-        TableRow tableRow = (TableRow) ret.findViewById(R.id.row2);
 
-        ArrayList<TextView> cells = new ArrayList<TextView>();
+        TableLayout table = (TableLayout) ret.findViewById(R.id.tablelayout);
+        TableRow [] rows = new TableRow[12];
+        TextView[][] lessons = new TextView[12][6];
 
         // get text view
-        for (int i = 1; i < tableRow.getChildCount(); i++)
+        for (int i = 0; i < table.getChildCount(); i++)
         {
-            if (tableRow.getChildAt(i).getClass() == TextView.class)
+            if (table.getChildAt(i).getClass()==TableRow.class)
             {
-                cells.add((TextView)tableRow.getChildAt(i));
 
+                rows[i]= (TableRow) table.getChildAt(i);
 
+               for (int c = 0; c < 6; c++)
+                {
+                    lessons[i][c] = (TextView)rows[i].getChildAt(c);
+                    lessons[i][c].setTypeface(tf);
+
+                }
+            }
+
+            else
+            {
+                Log.e("MYTAG","ERROR");
             }
         }
 
-        // set titles
-        final String zimmer1 = "Zimmer1";
-        final String fach1 = "Fach1";
-        for(Iterator<TextView> i = cells.iterator(); i.hasNext(); )
+
+        //Set times to bold font
+        for (int i = 0; i < 12; i++)
         {
-            TextView item = i.next();
-            item.setText(Html.fromHtml("<b>" + fach1 + "</b>" + "<br />" +
-                    "<small>" + zimmer1 + "</small>" + "<br />"));
-            item.setTypeface(tf);
+            String txt = lessons[i][0].getText().toString();
+            lessons[i][0].setText(Html.fromHtml("<b>" + txt + "</b>"));
         }
 
+        //Set days to bold font
+        for (int i = 0; i < 6; i++)
+        {
+            String txt = lessons[0][i].getText().toString();
+            lessons[0][i].setText(Html.fromHtml("<b>" + txt + "</b>"));
+        }
+
+
+        //Orientation Handling
+        int nowOrientation = getResources().getConfiguration().orientation;
+        if (nowOrientation == Configuration.ORIENTATION_LANDSCAPE)
+        {
+            TableRow.LayoutParams parameter = (TableRow.LayoutParams) lessons[1][1].getLayoutParams();
+            TableRow.LayoutParams parameterw = new TableRow.LayoutParams();
+            TableRow.LayoutParams parameterh = new TableRow.LayoutParams();
+            TableRow.LayoutParams parameterborder = new TableRow.LayoutParams();
+
+            parameterw.width = 130;
+            parameterh.height = 104;
+
+            parameterborder.width = parameterw.width;
+            parameterborder.height = 88;
+
+            parameter.height = parameterh.height;
+            parameter.width = parameterw.width;
+
+            for (int i = 1; i < 12; i++)
+            {
+                lessons[i][0].setLayoutParams(parameterborder);
+            }
+
+            for (int i = 0; i < 6; i++)
+            {
+                lessons[0][i].setLayoutParams(parameterh);
+            }
+
+            for (int i = 1; i < 12; i++)
+            {
+                    for (int c = 1; c < 6; c++)
+                    {
+                        lessons[i][c].setLayoutParams(parameter);
+
+                    }
+                }
+            }
+
+        else
+        {
+            // Portrait
+        }
+
+
+        //Setup JSON data
+        String JSON = null;
+        try
+        {
+            JSON = new String( ((Login)getActivity()).postrequest());
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+
         return ret;
+
     }
 
     public void onBackPressed()
