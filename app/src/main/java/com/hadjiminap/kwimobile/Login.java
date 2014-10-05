@@ -6,7 +6,6 @@ import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -38,6 +37,7 @@ import javax.net.ssl.HttpsURLConnection;
 public class Login extends Activity
 {
 
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -58,6 +58,8 @@ public class Login extends Activity
 
         //Set ProgressBar INVISIBLE
         progressBar.setVisibility(View.INVISIBLE);
+
+
 
         //Set Font
         Typeface tf = Typeface.createFromAsset(getAssets(), "font.ttf");
@@ -153,7 +155,6 @@ public class Login extends Activity
         BufferedWriter writer = new BufferedWriter(
                 new OutputStreamWriter(os, "UTF-8"));
         writer.write(getQuery(params));
-        Log.w("MYTAG", String.valueOf(writer));
         writer.flush();
         writer.close();
         os.close();
@@ -165,13 +166,31 @@ public class Login extends Activity
         BufferedReader reader = new BufferedReader(new InputStreamReader(response));
 
         String line = "";
-        String serverResponseMessage = null;
+        String serverResponseMessage = "";
         while ((line = reader.readLine()) != null)
         {
+
             serverResponseMessage += line;
         }
 
         response.close();
+        //FOR TESTING ONLY
+       /* final String TAG = "Something";
+        if (serverResponseMessage.length() > 4000) {
+            Log.w(TAG, "sb.length = " + serverResponseMessage.length());
+            int chunkCount = serverResponseMessage.length() / 4000;     // integer division
+            for (int i = 0; i <= chunkCount; i++) {
+                int max = 4000 * (i + 1);
+                if (max >= serverResponseMessage.length()) {
+                    Log.w(TAG, "chunk " + i + " of " + chunkCount + ":" + serverResponseMessage.substring(4000 * i));
+                } else {
+                    Log.w(TAG, "chunk " + i + " of " + chunkCount + ":" + serverResponseMessage.substring(4000 * i, max));
+                }
+            }
+        } else {
+            Log.w(TAG, serverResponseMessage.toString());
+        }*/
+
         return serverResponseMessage;
     }
 
@@ -191,7 +210,6 @@ public class Login extends Activity
             result.append("=");
             result.append(URLEncoder.encode(pair.getValue(), "UTF-8"));
         }
-        Log.w("MYTAG", String.valueOf(result));
 
         return result.toString();
     }
@@ -214,7 +232,7 @@ public class Login extends Activity
         {
             Button login = (Button) findViewById(R.id.loginbtn);
             login.setClickable(false);
-            potato(new Async().execute());
+            new Async().execute();
         }
 
 
@@ -232,20 +250,27 @@ public class Login extends Activity
         public void onPreExecute()
         {
             progressBar.setVisibility(View.VISIBLE);
+            login.setBackgroundColor(getResources().getColor(R.color.btnnormal));
         }
 
         @Override
         protected String doInBackground(Void... params)
         {
-            login.setBackgroundColor(getResources().getColor(R.color.btnnormal));
-
             String JSON = null;
-
             try
             {
                 JSON = new String(postrequest());
-                Log.w("MYTAG", JSON);
-                Log.w("MYTAG", "asdf");
+
+               /* Intent intenta = new Intent(Login.this, MainActivity.class);
+                intenta.putExtra("data", "asdf");
+                startActivity(intenta);
+              /*  Bundle bundle = new Bundle();
+                bundle.putString("edttext", "asdf");
+                Timetable fragobj = new Timetable();
+                fragobj.setArguments(bundle);*/
+                Intent i = new Intent(getApplicationContext(), Login.class);
+                i.putExtra("new_variable_name","value");
+                startActivity(i);
             }
             catch (IOException e)
             {
@@ -259,6 +284,8 @@ public class Login extends Activity
         @Override
         protected void onPostExecute(String result)
         {
+
+
             Intent switcher = new Intent(Login.this, MainActivity.class);
             Login.this.startActivity(switcher);
 

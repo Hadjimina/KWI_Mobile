@@ -13,7 +13,10 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import java.io.IOException;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Iterator;
 
 
 public class Timetable extends Fragment
@@ -109,20 +112,42 @@ public class Timetable extends Fragment
             // Portrait
         }
 
+        Bundle extras = getActivity().getIntent().getExtras();
+        if (extras != null)
+        {
+            String value = extras.getString("new_variable_name");
+            Log.w("mytag", value);
 
-        //Setup JSON data
-        String JSON = null;
-        try
-        {
-            JSON = new String( ((Login)getActivity()).postrequest());
+            try
+            {
+                JSONObject jobj = new JSONObject(value);
+
+                Iterator<String> iter = jobj.keys();
+                while (iter.hasNext())
+                {
+                    String key = iter.next();
+                    try
+                    {
+                        Object num = jobj.get(key);
+                        Log.w("mytag", String.valueOf(num));
+                    }
+                    catch (JSONException e)
+                    {
+                        // Something went wrong!
+                    }
+                }
+            }
+            catch (JSONException e)
+            {
+                e.printStackTrace();
+            }
         }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+
 
 
         return ret;
+
+
 
     }
 
@@ -130,5 +155,6 @@ public class Timetable extends Fragment
     {
         //Don't do anything when back button is pressed
     }
+
 
 }
