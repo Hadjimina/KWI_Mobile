@@ -33,6 +33,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     private CustomAdapter myAdapter;
     private String[] menus;
     private TextView[] lesson;
+    public String sender = "youshouldnotseethis";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -98,6 +99,16 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         //Set Drawerlistener
         drawerLayout.setDrawerListener(drawerListener);
 
+    }
+
+    //SEND DATA TO FRAGMENT
+    public String getData()
+    {
+        //SENDING DATA WITH SENDER
+        //GET JSON FROM ASYNC FROM LOGIN.CLASS
+        Bundle extras = getIntent().getExtras();
+        String sender = extras.getString("sender");
+        return sender;
     }
 
     @Override

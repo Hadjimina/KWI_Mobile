@@ -129,6 +129,8 @@ public class Login extends Activity
             }
         });
 
+
+
     }
 
     public String postrequest () throws IOException
@@ -251,6 +253,7 @@ public class Login extends Activity
         {
             progressBar.setVisibility(View.VISIBLE);
             login.setBackgroundColor(getResources().getColor(R.color.btnnormal));
+
         }
 
         @Override
@@ -261,16 +264,7 @@ public class Login extends Activity
             {
                 JSON = new String(postrequest());
 
-               /* Intent intenta = new Intent(Login.this, MainActivity.class);
-                intenta.putExtra("data", "asdf");
-                startActivity(intenta);
-              /*  Bundle bundle = new Bundle();
-                bundle.putString("edttext", "asdf");
-                Timetable fragobj = new Timetable();
-                fragobj.setArguments(bundle);*/
-                Intent i = new Intent(getApplicationContext(), Login.class);
-                i.putExtra("new_variable_name","value");
-                startActivity(i);
+
             }
             catch (IOException e)
             {
@@ -282,11 +276,11 @@ public class Login extends Activity
         }
 
         @Override
-        protected void onPostExecute(String result)
+        protected void onPostExecute(String data)
         {
 
-
             Intent switcher = new Intent(Login.this, MainActivity.class);
+            switcher.putExtra("sender",data);
             Login.this.startActivity(switcher);
 
         }
