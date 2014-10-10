@@ -2,22 +2,22 @@
 <pre-dex-items>
 
     <item
-        dex="/home/philipp/Development/Android/workspace/KWIMobile/app/build/intermediates/pre-dexed/debug/support-annotations-20.0.0-d8971ffbfbe94c23acddcef7d9e92c32d26203dc.jar"
-        jar="/home/philipp/Development/Android/android-studio/sdk/extras/android/m2repository/com/android/support/support-annotations/20.0.0/support-annotations-20.0.0.jar"
+        dex="/home/philipp/AndroidStudioProjects/KWI_Mobile/app/build/intermediates/pre-dexed/debug/classes-408453461298c42299b3be2c446cf4e1e48fee3e.jar"
+        jar="/home/philipp/AndroidStudioProjects/KWI_Mobile/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/classes.jar"
         jumboMode="false"
         revision="20.0.0"
-        sha1="9d9013e9ff35fc3756411e62873c363c70c638fa"/>
+        sha1="8694693636ab36910c8100ce527c258ff3ebece0"/>
     <item
-        dex="/home/philipp/Development/Android/workspace/KWIMobile/app/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-f5c5f537ed7e30df96e2ba913871a76f4218e0ba.jar"
-        jar="/home/philipp/Development/Android/workspace/KWIMobile/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/libs/internal_impl-20.0.0.jar"
+        dex="/home/philipp/AndroidStudioProjects/KWI_Mobile/app/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-fef674f244810496abe8c8987374ef921204f223.jar"
+        jar="/home/philipp/AndroidStudioProjects/KWI_Mobile/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/libs/internal_impl-20.0.0.jar"
         jumboMode="false"
         revision="20.0.0"
         sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d"/>
     <item
-        dex="/home/philipp/Development/Android/workspace/KWIMobile/app/build/intermediates/pre-dexed/debug/classes-a06855555434113c5f53eb973d1a813f5c312074.jar"
-        jar="/home/philipp/Development/Android/workspace/KWIMobile/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/classes.jar"
+        dex="/home/philipp/AndroidStudioProjects/KWI_Mobile/app/build/intermediates/pre-dexed/debug/support-annotations-20.0.0-39e7fc9ecf991a58d215f3a5e158821feb9588fa.jar"
+        jar="/home/philipp/Development/android-studio/sdk/extras/android/m2repository/com/android/support/support-annotations/20.0.0/support-annotations-20.0.0.jar"
         jumboMode="false"
         revision="20.0.0"
-        sha1="8694693636ab36910c8100ce527c258ff3ebece0"/>
+        sha1="9d9013e9ff35fc3756411e62873c363c70c638fa"/>
 
 </pre-dex-items>
