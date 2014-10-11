@@ -127,7 +127,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
                 newFragment = new Timetable();
                 break;
             case 1:
-                newFragment = new testfrag();
+                newFragment = new improvements();
                 break;
             case 2:
                 newFragment = new testfrag();

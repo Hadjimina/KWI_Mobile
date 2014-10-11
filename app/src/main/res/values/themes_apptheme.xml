@@ -6,6 +6,7 @@
     <style name="AppTheme" parent="@style/_AppTheme"/>
     <style name="_AppTheme" parent="@android:style/Theme.Holo.Light">
         <item name="android:editTextStyle">@style/EditTextAppTheme</item>
+	<item name="android:checkboxStyle">@style/CheckBoxAppTheme</item>
     </style>
 
 
