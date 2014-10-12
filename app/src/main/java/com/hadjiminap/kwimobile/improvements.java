@@ -16,9 +16,9 @@ public class improvements extends Fragment
     {
         Intent i = new Intent(Intent.ACTION_SEND);
         i.setType("message/rfc822");
-        i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"recipient@example.com"});
-        i.putExtra(Intent.EXTRA_SUBJECT, "subject of email");
-        i.putExtra(Intent.EXTRA_TEXT   , "body of email");
+        i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"philipp.hadjimina@gmx.ch"});
+        i.putExtra(Intent.EXTRA_SUBJECT, "Verbesserungsvorschlag");
+        i.putExtra(Intent.EXTRA_TEXT   , "");
         try
         {
             startActivity(Intent.createChooser(i, "Send mail..."));

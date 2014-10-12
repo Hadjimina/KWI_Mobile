@@ -13,7 +13,7 @@
     <color name="red">#ff0000</color>
     <string-array name="menu">
         <item > Stundenplan</item>
-        <item > Verbesserungsvorschlag</item>
+        <item > Verbesserung</item>
         <item > Placeholder 2</item>
         <item > Placeholder 3</item>
         <item > Placeholder 4</item>

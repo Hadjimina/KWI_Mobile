@@ -13,6 +13,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,7 +29,12 @@ public class Timetable extends Fragment
         String[] iteratorhandling = new String[11];
         String[] dates = new String [11];
         JSONObject[] days = new JSONObject[11];
-        int mo=0;
+        JSONArray[] hours = new JSONArray[9];
+        JSONObject[] lektion = new JSONObject[9];
+        String subject = "";
+        String roomnr = "";
+        JSONArray rooms = new JSONArray();
+        int num = 0;
 
         View ret =  inflater.inflate(R.layout.timetable, null);
         Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "font.ttf");
@@ -136,81 +142,127 @@ public class Timetable extends Fragment
 
                 iteratorhandling[i] = iter.next();
                 i++;
+
             }
 
-            mo = mondaycheck(iteratorhandling);
-            Log.w("potato",String.valueOf(mo));
-
+            //monday check gives location in array
+            //method to get position in dates array
             //WEIRD HANDLING FROM ITERATOR => WORKAROUND
-            dates[6] = iteratorhandling[0];
-            dates[7] = iteratorhandling[1];
-            dates[8] = iteratorhandling[2];
-            dates[9] = iteratorhandling[3];
-            dates[0] = iteratorhandling[4];
-            dates[10] = iteratorhandling[5];
-            dates[1] = iteratorhandling[6];
-            dates[4] = iteratorhandling[7];
-            dates[5] = iteratorhandling[8];
-            dates[2] = iteratorhandling[9];
-            dates[3] = iteratorhandling[10];
+            dates[4] = iteratorhandling[0];
+            dates[5] = iteratorhandling[1];
+            dates[6] = iteratorhandling[2];
+            dates[10] = iteratorhandling[3];
+            dates[7] = iteratorhandling[4];
+            dates[8] = iteratorhandling[5];
+            dates[9] = iteratorhandling[6];
+            dates[2] = iteratorhandling[7];
+            dates[3] = iteratorhandling[8];
+            dates[0] = iteratorhandling[9];
+            dates[1] = iteratorhandling[10];
 
-            /*for (int c = 0; c < 10 ; c++)
-            {
-                days[c] = json.getJSONObject(dates[c]);
-            }*/
             days[0] = json.getJSONObject(dates[0]);
             days[1] = json.getJSONObject(dates[1]);
             days[2] = json.getJSONObject(dates[2]);
             days[3] = json.getJSONObject(dates[3]);
-            days[4] = json.getJSONObject(dates[4]);
+           // days[4] = json.getJSONObject(dates[4]);
             days[5] = json.getJSONObject(dates[5]);
-//            days[6] = json.getJSONObject(dates[6]);
+            days[6] = json.getJSONObject(dates[6]);
             days[7] = json.getJSONObject(dates[7]);
             days[8] = json.getJSONObject(dates[8]);
-            days[9] = json.getJSONObject(dates[9]);
+            //days[9] = json.getJSONObject(dates[9]);
             days[10] = json.getJSONObject(dates[10]);
 
+            num = changenum(mondaycheck(iteratorhandling));
+
+            hours[0] = days[num].getJSONArray(Integer.toString(0));
+            lektion[0] = hours[0].getJSONObject(0);
+            Log.w("ofj",String.valueOf(lektion[0]));
+            subject = (String) lektion[0].get("subject");
+            Log.w("subject", String.valueOf(subject));
+            rooms = lektion[0].getJSONArray("rooms");
+            Log.w("rooms", String.valueOf(rooms));
+            roomnr = (String) rooms.get(0);
+            Log.w("roomnr", roomnr);
 
 
 
 
+           /* for (int a = 0; a < 4; a ++)
+            {
+                try
+                {
+                    hours[a] = days[num].getJSONArray(Integer.toString(a));
+                    Log.w("asdffa", String.valueOf(hours[a]));
+                    lektion[a] = hours[a].getJSONArray(a + 1);
+                    Log.w("lökjlöj", String.valueOf(lektion[a]));
 
+                }
+                catch (Exception e)
+                {
+                    Log.w("asdf", "error");
+                }
+
+            }*/
+
+            /* int z =0;
+            while ( z < 9)
+            {
+                for (int a = 0; a < 9; a ++)
+                {
+                    try
+                    {
+                        hours[a] = days[num].getJSONArray(Integer.toString(a));
+                    }
+                    catch (Exception e)
+                    {
+                        Log.w("asdf", "error");
+                    }
+
+                }
+                z++;
+            }
+            hours[0] = days[num].getJSONArray("0");
+            hours[1] = days[num].getJSONArray("1");
+            hours[2] = days[num].getJSONArray("2");
+            hours[3] = days[num].getJSONArray("3");
+            hours[4] = days[num].getJSONArray("4");
+            hours[5] = days[num].getJSONArray("5");
+            hours[6] = days[num].getJSONArray("6");
+            hours[7] = days[num].getJSONArray("7");
+            hours[8] = days[num].getJSONArray("8");*/
         }
         catch (JSONException e)
         {
             e.printStackTrace();
         }
 
-
-
-
         return ret;
     }
 
     public int mondaycheck(String items[])
     {
-        int[] checker = new int[10];
+        int[] checker = new int[11];
+        String[] newitems = new String[11];
+        int fin = 0;
 
         int monday = 0;
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
         int date = cal.get(Calendar.DATE);
-        Log.w("date", String.valueOf(date));
-        for (int q = 0; q < 10;q ++)
-        {
-            Log.w("items", String.valueOf(items[q]));
-            items[q]= items[q].substring(8);
 
-            char c = items[q].charAt(0);
+        for (int q = 0; q < 11;q ++)
+        {
+            newitems[q]= items[q].substring(8);
+
+            char c = newitems[q].charAt(0);
 
             if (c == 0)
             {
-                items[q]= items[q].substring(1);
+                newitems[q]= newitems[q].substring(1);
             }
-            Log.w("items", String.valueOf(items[q]));
             try
             {
-             checker[q] = Integer.parseInt(items[q]);
+             checker[q] = Integer.parseInt(newitems[q]);
             }
             catch(NumberFormatException nfe)
             {
@@ -219,13 +271,61 @@ public class Timetable extends Fragment
 
             if (checker[q]== date)
             {
-                monday = checker[q];
-
+                fin = q;
             }
-
-            Log.w("monday", String.valueOf(monday));
         }
-        return monday;
+        return fin;
+    }
+
+    public int changenum (int mo)
+     {
+        int res = 0;
+
+        if (mo == 0)
+        {
+            res = 4;
+        }
+        else if (mo ==1)
+        {
+            res = 5;
+        }
+        else if (mo ==2)
+        {
+            res = 6;
+        }
+        else if (mo ==3)
+        {
+            res = 10;
+        }
+        else if (mo ==4)
+        {
+            res = 7;
+        }
+        else if (mo ==5)
+        {
+            res = 8;
+        }
+        else if (mo ==6)
+        {
+            res = 9;
+        }
+        else if (mo ==7)
+        {
+            res = 2;
+        }
+        else if (mo ==8)
+        {
+            res = 3;
+        }
+        else if (mo ==9)
+        {
+            res = 0;
+        }
+        else if (mo ==10)
+        {
+            res = 1;
+        }
+        return res;
     }
 
 
