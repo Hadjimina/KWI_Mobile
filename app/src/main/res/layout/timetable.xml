@@ -45,7 +45,7 @@
                         <TextView android:background="@drawable/cellshapeside" android:layout_height="@dimen/tbheight" android:id="@+id/t1" android:layout_width="@dimen/tbborderwidth" android:text="07:30"
                                   android:gravity="center_horizontal"></TextView>
                         <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mol1" android:layout_width="@dimen/tbwidth" android:text="mol1"
-                                  android:gravity="center_horizontal"></TextView>
+                            android:gravity="center_horizontal"></TextView>
                         <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dil1" android:layout_width="@dimen/tbwidth" android:text="dil1"
                                   android:gravity="center_horizontal"></TextView>
                         <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mil1" android:layout_width="@dimen/tbwidth" android:text="mil1"

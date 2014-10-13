@@ -29,11 +29,11 @@ public class Timetable extends Fragment
         String[] iteratorhandling = new String[11];
         String[] dates = new String [11];
         JSONObject[] days = new JSONObject[11];
-        JSONArray[] hours = new JSONArray[9];
-        JSONObject[] lektion = new JSONObject[9];
-        String subject = "";
-        String roomnr = "";
-        JSONArray rooms = new JSONArray();
+        JSONArray[] hours = new JSONArray[11];
+        JSONObject[][] lektion = new JSONObject[11][3];
+        String[] subject = new String [11];
+        String[] roomnr = new String [11];
+        JSONArray[] rooms = new JSONArray[11];
         int num = 0;
 
         View ret =  inflater.inflate(R.layout.timetable, null);
@@ -174,15 +174,100 @@ public class Timetable extends Fragment
 
             num = changenum(mondaycheck(iteratorhandling));
 
-            hours[0] = days[num].getJSONArray(Integer.toString(0));
-            lektion[0] = hours[0].getJSONObject(0);
-            Log.w("ofj",String.valueOf(lektion[0]));
-            subject = (String) lektion[0].get("subject");
-            Log.w("subject", String.valueOf(subject));
-            rooms = lektion[0].getJSONArray("rooms");
-            Log.w("rooms", String.valueOf(rooms));
-            roomnr = (String) rooms.get(0);
-            Log.w("roomnr", roomnr);
+            int potoato =0;
+
+           /* while (potoato < 5)
+            {
+                Log.w("asdf","asdfasdf");
+                try
+                {*/
+                    for (int les = 0;les < 5; les ++)
+                    {
+                        hours[les] = days[num].getJSONArray(Integer.toString(les));
+
+                        if (hours[les].length() == 2)
+                        {
+                            for (int o = 0; o < 2; o++)
+                            {
+                                lektion[les][o] = hours[les].getJSONObject(o);
+
+                                subject[o] = (String) lektion[les][o].get("subject");
+
+                                rooms[o] = lektion[les][o].getJSONArray("rooms");
+
+                                roomnr[o] = (String) rooms[o].get(0);
+
+                                int col = les + 1;
+                                lessons[col][1].setText(Html.fromHtml("<p align=center> <b> "
+                                        + subject[0]
+                                        + " </b><small>"
+                                        + roomnr[0]
+                                        + "</small></p>"
+                                        + "<p align=center><b> "
+                                        + subject[1]
+                                        + " </b><small>"
+                                        + roomnr[1]
+                                        + "</small></p>"));
+                            }
+                        }
+                        else if (hours[les].length() == 3)
+                        {
+                            for (int o =0; o < 3; o++)
+                            {
+                                lektion[les][o] = hours[les].getJSONObject(o);
+
+                                subject[o] = (String) lektion[les][o].get("subject");
+
+                                rooms[o] = lektion[les][o].getJSONArray("rooms");
+
+                                roomnr[o] = (String) rooms[o].get(0);
+
+                                int col = les + 1;
+                                lessons[col][1].setText(Html.fromHtml("<b> "
+                                        + subject[0]
+                                        + " </b><small>"
+                                        + roomnr[0]
+                                        + "</small></p>"
+                                        + "<b> "
+                                        + subject[1]
+                                        + " </b><small>"
+                                        + roomnr[1]
+                                        + "</small></p>"
+                                        + "<b> "
+                                        + subject[2]
+                                        + " </b><small>"
+                                        + roomnr[2]
+                                        + "</small></p>"));
+                            }
+                        }
+                        else
+                        {
+                            lektion[les][0] = hours[les].getJSONObject(0);
+                            Log.w("mytag", String.valueOf(lektion[les][0]));
+
+                            subject[les] = (String) lektion[les][0].get("subject");
+                            Log.w("mytag", String.valueOf(subject[les]));
+
+                            rooms[les] = lektion[les][0].getJSONArray("rooms");
+                            Log.w("mytag",String.valueOf(rooms[les]));
+
+                            roomnr[les] = (String) rooms[les].get(0);
+                            Log.w("mytag",String.valueOf(roomnr[les]));
+
+                            int col = les + 1;
+                            lessons[col][1].setText(Html.fromHtml("<b>" + subject[les] + "</b>" + "<br/>" + "<small>" + roomnr[les] + "</small>"));
+
+
+                        }
+                    }
+              /*  }
+                catch (Exception e)
+                {
+                    Log.w("error","error");
+                }
+            potoato++;
+            }*/
+
 
 
 
