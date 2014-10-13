@@ -17,6 +17,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 
@@ -35,6 +36,13 @@ public class Timetable extends Fragment
         String[] roomnr = new String [11];
         JSONArray[] rooms = new JSONArray[11];
         int num = 0;
+
+        //SETUP ARRAY LIST AND POPULATE IT
+        ArrayList<Integer> vals = new ArrayList<Integer>();
+        for (int w = 0;w<12;w++)
+        {
+            vals.add(w);
+        }
 
         View ret =  inflater.inflate(R.layout.timetable, null);
         Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "font.ttf");
@@ -130,15 +138,13 @@ public class Timetable extends Fragment
         MainActivity activity = (MainActivity) getActivity();
         String jdata = activity.getData();
 
-        try
-        {
+        try {
             JSONObject json = new JSONObject(jdata);
 
             Iterator<String> iter = json.keys();
 
             int i = 0;
-            while (iter.hasNext())
-            {
+            while (iter.hasNext()) {
 
                 iteratorhandling[i] = iter.next();
                 i++;
@@ -164,7 +170,7 @@ public class Timetable extends Fragment
             days[1] = json.getJSONObject(dates[1]);
             days[2] = json.getJSONObject(dates[2]);
             days[3] = json.getJSONObject(dates[3]);
-           // days[4] = json.getJSONObject(dates[4]);
+            // days[4] = json.getJSONObject(dates[4]);
             days[5] = json.getJSONObject(dates[5]);
             days[6] = json.getJSONObject(dates[6]);
             days[7] = json.getJSONObject(dates[7]);
@@ -174,30 +180,26 @@ public class Timetable extends Fragment
 
             num = changenum(mondaycheck(iteratorhandling));
 
-            int potoato =0;
-
-           /* while (potoato < 5)
+            for (int v : vals)
             {
-                Log.w("asdf","asdfasdf");
+                Log.w("v",String.valueOf(v));
                 try
-                {*/
-                    for (int les = 0;les < 5; les ++)
-                    {
-                        hours[les] = days[num].getJSONArray(Integer.toString(les));
+                {
+                        hours[v] = days[num].getJSONArray(Integer.toString(v));
 
-                        if (hours[les].length() == 2)
+                        if (hours[v].length() == 2)
                         {
                             for (int o = 0; o < 2; o++)
                             {
-                                lektion[les][o] = hours[les].getJSONObject(o);
+                                lektion[v][o] = hours[v].getJSONObject(o);
 
-                                subject[o] = (String) lektion[les][o].get("subject");
+                                subject[o] = (String) lektion[v][o].get("subject");
 
-                                rooms[o] = lektion[les][o].getJSONArray("rooms");
+                                rooms[o] = lektion[v][o].getJSONArray("rooms");
 
                                 roomnr[o] = (String) rooms[o].get(0);
 
-                                int col = les + 1;
+                                int col = v + 1;
                                 lessons[col][1].setText(Html.fromHtml("<p align=center> <b> "
                                         + subject[0]
                                         + " </b><small>"
@@ -210,19 +212,19 @@ public class Timetable extends Fragment
                                         + "</small></p>"));
                             }
                         }
-                        else if (hours[les].length() == 3)
+                        else if (hours[v].length() == 3)
                         {
-                            for (int o =0; o < 3; o++)
+                            for (int o = 0; o < 3; o++)
                             {
-                                lektion[les][o] = hours[les].getJSONObject(o);
+                                lektion[v][o] = hours[v].getJSONObject(o);
 
-                                subject[o] = (String) lektion[les][o].get("subject");
+                                subject[o] = (String) lektion[v][o].get("subject");
 
-                                rooms[o] = lektion[les][o].getJSONArray("rooms");
+                                rooms[o] = lektion[v][o].getJSONArray("rooms");
 
                                 roomnr[o] = (String) rooms[o].get(0);
 
-                                int col = les + 1;
+                                int col = v + 1;
                                 lessons[col][1].setText(Html.fromHtml("<b> "
                                         + subject[0]
                                         + " </b><small>"
@@ -242,79 +244,24 @@ public class Timetable extends Fragment
                         }
                         else
                         {
-                            lektion[les][0] = hours[les].getJSONObject(0);
-                            Log.w("mytag", String.valueOf(lektion[les][0]));
+                            lektion[v][0] = hours[v].getJSONObject(0);
 
-                            subject[les] = (String) lektion[les][0].get("subject");
-                            Log.w("mytag", String.valueOf(subject[les]));
+                            subject[v] = (String) lektion[v][0].get("subject");
 
-                            rooms[les] = lektion[les][0].getJSONArray("rooms");
-                            Log.w("mytag",String.valueOf(rooms[les]));
+                            rooms[v] = lektion[v][0].getJSONArray("rooms");
 
-                            roomnr[les] = (String) rooms[les].get(0);
-                            Log.w("mytag",String.valueOf(roomnr[les]));
+                            roomnr[v] = (String) rooms[v].get(0);
 
-                            int col = les + 1;
-                            lessons[col][1].setText(Html.fromHtml("<b>" + subject[les] + "</b>" + "<br/>" + "<small>" + roomnr[les] + "</small>"));
-
-
+                            int col = v + 1;
+                            lessons[col][1].setText(Html.fromHtml("<b>" + subject[v] + "</b>" + "<br/>" + "<small>" + roomnr[v] + "</small>"));
                         }
-                    }
-              /*  }
-                catch (Exception e)
-                {
-                    Log.w("error","error");
-                }
-            potoato++;
-            }*/
-
-
-
-
-
-           /* for (int a = 0; a < 4; a ++)
-            {
-                try
-                {
-                    hours[a] = days[num].getJSONArray(Integer.toString(a));
-                    Log.w("asdffa", String.valueOf(hours[a]));
-                    lektion[a] = hours[a].getJSONArray(a + 1);
-                    Log.w("lökjlöj", String.valueOf(lektion[a]));
-
                 }
                 catch (Exception e)
                 {
-                    Log.w("asdf", "error");
+                    Log.i("empty string","empty string");
                 }
-
-            }*/
-
-            /* int z =0;
-            while ( z < 9)
-            {
-                for (int a = 0; a < 9; a ++)
-                {
-                    try
-                    {
-                        hours[a] = days[num].getJSONArray(Integer.toString(a));
-                    }
-                    catch (Exception e)
-                    {
-                        Log.w("asdf", "error");
-                    }
-
-                }
-                z++;
             }
-            hours[0] = days[num].getJSONArray("0");
-            hours[1] = days[num].getJSONArray("1");
-            hours[2] = days[num].getJSONArray("2");
-            hours[3] = days[num].getJSONArray("3");
-            hours[4] = days[num].getJSONArray("4");
-            hours[5] = days[num].getJSONArray("5");
-            hours[6] = days[num].getJSONArray("6");
-            hours[7] = days[num].getJSONArray("7");
-            hours[8] = days[num].getJSONArray("8");*/
+
         }
         catch (JSONException e)
         {

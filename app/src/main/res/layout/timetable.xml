@@ -44,15 +44,15 @@
 
                         <TextView android:background="@drawable/cellshapeside" android:layout_height="@dimen/tbheight" android:id="@+id/t1" android:layout_width="@dimen/tbborderwidth" android:text="07:30"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mol1" android:layout_width="@dimen/tbwidth" android:text="mol1"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mol1" android:layout_width="@dimen/tbwidth"
                             android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dil1" android:layout_width="@dimen/tbwidth" android:text="dil1"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dil1" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mil1" android:layout_width="@dimen/tbwidth" android:text="mil1"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mil1" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dol1" android:layout_width="@dimen/tbwidth" android:text="dol1"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dol1" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/frl1" android:layout_width="@dimen/tbwidth" android:text="frl1"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/frl1" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
 
                     </TableRow>
@@ -60,15 +60,15 @@
 
                         <TextView android:background="@drawable/cellshapeside" android:layout_height="@dimen/tbheight" android:id="@+id/t2" android:layout_width="@dimen/tbborderwidth" android:text="08:25"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mol2" android:layout_width="@dimen/tbwidth" android:text="mol2"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mol2" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dil2" android:layout_width="@dimen/tbwidth" android:text="dil2"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dil2" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mil2" android:layout_width="@dimen/tbwidth" android:text="mil2"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mil2" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dol2" android:layout_width="@dimen/tbwidth" android:text="dol2"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dol2" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/frl2" android:layout_width="@dimen/tbwidth" android:text="frl2"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/frl2" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
 
                     </TableRow>
@@ -76,15 +76,15 @@
 
                         <TextView android:background="@drawable/cellshapeside" android:layout_height="@dimen/tbheight" android:id="@+id/t3" android:layout_width="@dimen/tbborderwidth" android:text="09:20"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mol3" android:layout_width="@dimen/tbwidth" android:text="mol3"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mol3" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dil3" android:layout_width="@dimen/tbwidth" android:text="dil3"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dil3" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mil3" android:layout_width="@dimen/tbwidth" android:text="mil2"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mil3" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dol3" android:layout_width="@dimen/tbwidth" android:text="dol3"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dol3" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/frl3" android:layout_width="@dimen/tbwidth" android:text="frl3"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/frl3" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
 
                     </TableRow>
@@ -92,15 +92,15 @@
 
                         <TextView android:background="@drawable/cellshapeside" android:layout_height="@dimen/tbheight" android:id="@+id/t4" android:layout_width="@dimen/tbborderwidth" android:text="10:20"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mol4" android:layout_width="@dimen/tbwidth" android:text="mol4"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mol4" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dil4" android:layout_width="@dimen/tbwidth" android:text="dil4"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dil4" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mil4" android:layout_width="@dimen/tbwidth" android:text="mil4"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mil4" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dol4" android:layout_width="@dimen/tbwidth" android:text="dol4"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dol4" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/frl4" android:layout_width="@dimen/tbwidth" android:text="frl4"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/frl4" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
 
                     </TableRow>
@@ -108,15 +108,15 @@
 
                         <TextView android:background="@drawable/cellshapeside" android:layout_height="@dimen/tbheight" android:id="@+id/t5" android:layout_width="@dimen/tbborderwidth" android:text="11:15"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mol5" android:layout_width="@dimen/tbwidth" android:text="mol5"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mol5" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dil5" android:layout_width="@dimen/tbwidth" android:text="dil5"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dil5" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mil5" android:layout_width="@dimen/tbwidth" android:text="mil5"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mil5" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dol5" android:layout_width="@dimen/tbwidth" android:text="dol5"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dol5" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/frl5" android:layout_width="@dimen/tbwidth" android:text="frl5"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/frl5" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
 
                     </TableRow>
@@ -124,15 +124,15 @@
 
                         <TextView android:background="@drawable/cellshapeside" android:layout_height="@dimen/tbheight" android:id="@+id/t6" android:layout_width="@dimen/tbborderwidth" android:text="12:00"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mol6" android:layout_width="@dimen/tbwidth" android:text="mol6"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mol6" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dil6" android:layout_width="@dimen/tbwidth" android:text="dil6"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dil6" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mil6" android:layout_width="@dimen/tbwidth" android:text="mil6"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mil6" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dol6" android:layout_width="@dimen/tbwidth" android:text="dol6"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dol6" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/frl6" android:layout_width="@dimen/tbwidth" android:text="frl6"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/frl6" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
 
                     </TableRow>
@@ -140,15 +140,15 @@
 
                         <TextView android:background="@drawable/cellshapeside" android:layout_height="@dimen/tbheight" android:id="@+id/t7" android:layout_width="@dimen/tbborderwidth" android:text="12:25"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mol7" android:layout_width="@dimen/tbwidth" android:text="mol7"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mol7" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dil7" android:layout_width="@dimen/tbwidth" android:text="dil7"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dil7" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mil7" android:layout_width="@dimen/tbwidth" android:text="mil7"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mil7" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dol7" android:layout_width="@dimen/tbwidth" android:text="dol7"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dol7" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/frl7" android:layout_width="@dimen/tbwidth" android:text="frl7"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/frl7" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
 
                     </TableRow>
@@ -156,15 +156,15 @@
 
                         <TextView android:background="@drawable/cellshapeside" android:layout_height="@dimen/tbheight" android:id="@+id/t8" android:layout_width="@dimen/tbborderwidth" android:text="13:20"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mol8" android:layout_width="@dimen/tbwidth" android:text="mol8"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mol8" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dil8" android:layout_width="@dimen/tbwidth" android:text="dil8"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dil8" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mil8" android:layout_width="@dimen/tbwidth" android:text="mil8"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mil8" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dol8" android:layout_width="@dimen/tbwidth" android:text="dol8"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dol8" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/frl8" android:layout_width="@dimen/tbwidth" android:text="frl8"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/frl8" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
 
                     </TableRow>
@@ -172,15 +172,15 @@
 
                         <TextView android:background="@drawable/cellshapeside" android:layout_height="@dimen/tbheight" android:id="@+id/t9" android:layout_width="@dimen/tbborderwidth" android:text="14:15"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mol9" android:layout_width="@dimen/tbwidth" android:text="mol9"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mol9" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dil9" android:layout_width="@dimen/tbwidth" android:text="dil9"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dil9" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mil9" android:layout_width="@dimen/tbwidth" android:text="mil9"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mil9" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dol9" android:layout_width="@dimen/tbwidth" android:text="dol9"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dol9" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/frl9" android:layout_width="@dimen/tbwidth" android:text="frl9"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/frl9" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
 
                     </TableRow>
@@ -188,15 +188,15 @@
 
                         <TextView android:background="@drawable/cellshapeside" android:layout_height="@dimen/tbheight" android:id="@+id/t10" android:layout_width="@dimen/tbborderwidth" android:text="15:10"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mol10" android:layout_width="@dimen/tbwidth" android:text="mol10"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mol10" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dil10" android:layout_width="@dimen/tbwidth" android:text="dil10"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dil10" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mil10" android:layout_width="@dimen/tbwidth" android:text="mil10"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mil10" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dol10" android:layout_width="@dimen/tbwidth" android:text="dol10"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dol10" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/frl10" android:layout_width="@dimen/tbwidth" android:text="frl10"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/frl10" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
 
                     </TableRow>
@@ -204,15 +204,15 @@
 
                         <TextView android:background="@drawable/cellshapeside" android:layout_height="@dimen/tbheight" android:id="@+id/t11" android:layout_width="@dimen/tbborderwidth" android:text="16:00"
                                   android:gravity="center_horizontal" ></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mol11" android:layout_width="@dimen/tbwidth" android:text="mol11"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mol11" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dil11" android:layout_width="@dimen/tbwidth" android:text="dil11"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dil11" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mil11" android:layout_width="@dimen/tbwidth" android:text="mil11"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/mil11" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dol11" android:layout_width="@dimen/tbwidth" android:text="dol11"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/dol11" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
-                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/frl11" android:layout_width="@dimen/tbwidth" android:text="frl11"
+                        <TextView android:background="@drawable/cellshape" android:layout_height="@dimen/tbheight" android:id="@+id/frl11" android:layout_width="@dimen/tbwidth"
                                   android:gravity="center_horizontal"></TextView>
                     </TableRow>
                 </TableLayout>
