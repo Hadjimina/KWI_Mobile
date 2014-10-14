@@ -27,15 +27,15 @@ public class Timetable extends Fragment
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState)
     {
-        String[] iteratorhandling = new String[11];
+        String[] iteratorhandling = new String[20];
         String[] dates = new String [11];
-        JSONObject[] days = new JSONObject[11];
+        JSONObject[] days = new JSONObject[5];
         JSONArray[] hours = new JSONArray[11];
         JSONObject[][] lektion = new JSONObject[11][3];
         String[] subject = new String [11];
         String[] roomnr = new String [11];
         JSONArray[] rooms = new JSONArray[11];
-        int num = 0;
+        int num ;
 
         //SETUP ARRAY LIST AND POPULATE IT
         ArrayList<Integer> vals = new ArrayList<Integer>();
@@ -73,7 +73,7 @@ public class Timetable extends Fragment
             }
         }
 
-
+        lessons[1][0].setText("07:30 \n"+"-"+ "\n08:15");
         //Set times to bold font
         for (int i = 0; i < 12; i++)
         {
@@ -144,48 +144,48 @@ public class Timetable extends Fragment
             Iterator<String> iter = json.keys();
 
             int i = 0;
-            while (iter.hasNext()) {
+            while (iter.hasNext())
+            {
 
                 iteratorhandling[i] = iter.next();
                 i++;
-
             }
 
             //monday check gives location in array
             //method to get position in dates array
             //WEIRD HANDLING FROM ITERATOR => WORKAROUND
-            dates[4] = iteratorhandling[0];
-            dates[5] = iteratorhandling[1];
-            dates[6] = iteratorhandling[2];
-            dates[10] = iteratorhandling[3];
-            dates[7] = iteratorhandling[4];
-            dates[8] = iteratorhandling[5];
-            dates[9] = iteratorhandling[6];
-            dates[2] = iteratorhandling[7];
-            dates[3] = iteratorhandling[8];
-            dates[0] = iteratorhandling[9];
-            dates[1] = iteratorhandling[10];
+            dates[2] = iteratorhandling[0];
+            dates[3] = iteratorhandling[1];
+            dates[4] = iteratorhandling[2];
+            dates[8] = iteratorhandling[3];
+            dates[5] = iteratorhandling[4];
+            dates[9] = iteratorhandling[5];
+            dates[6] = iteratorhandling[6];
+            dates[7] = iteratorhandling[7];
+            dates[0] = iteratorhandling[8];
+            dates[1] = iteratorhandling[9];
 
-            days[0] = json.getJSONObject(dates[0]);
-            days[1] = json.getJSONObject(dates[1]);
-            days[2] = json.getJSONObject(dates[2]);
-            days[3] = json.getJSONObject(dates[3]);
-            // days[4] = json.getJSONObject(dates[4]);
-            days[5] = json.getJSONObject(dates[5]);
-            days[6] = json.getJSONObject(dates[6]);
-            days[7] = json.getJSONObject(dates[7]);
-            days[8] = json.getJSONObject(dates[8]);
-            //days[9] = json.getJSONObject(dates[9]);
-            days[10] = json.getJSONObject(dates[10]);
+            for (int raft =0; raft <10;raft++)
+            {
+                Log.w("iteratorhandling",String.valueOf(dates[raft]));
+                Log.w("dates",String.valueOf(dates[raft]));
+            }
+
 
             num = changenum(mondaycheck(iteratorhandling));
+            Log.w("num",String.valueOf(num));
 
-            for (int v : vals)
+            for (int everyday = 0; everyday <= 3; everyday++ )
             {
-                Log.w("v",String.valueOf(v));
-                try
+                days[everyday] = json.getJSONObject(dates[num]);
+
+
+                for (int v : vals)
                 {
-                        hours[v] = days[num].getJSONArray(Integer.toString(v));
+                    try
+                    {
+                        hours[v] = days[everyday].getJSONArray(Integer.toString(v));
+                        Log.w("hours",String.valueOf(v));
 
                         if (hours[v].length() == 2)
                         {
@@ -200,7 +200,9 @@ public class Timetable extends Fragment
                                 roomnr[o] = (String) rooms[o].get(0);
 
                                 int col = v + 1;
-                                lessons[col][1].setText(Html.fromHtml("<p align=center> <b> "
+                                int everydaytext = everyday + 1;
+                                Log.w("daystext",String.valueOf(everydaytext));
+                                lessons[col][everydaytext].setText(Html.fromHtml("<p align=center> <b> "
                                         + subject[0]
                                         + " </b><small>"
                                         + roomnr[0]
@@ -225,7 +227,9 @@ public class Timetable extends Fragment
                                 roomnr[o] = (String) rooms[o].get(0);
 
                                 int col = v + 1;
-                                lessons[col][1].setText(Html.fromHtml("<b> "
+                                int everydaytext = everyday + 1;
+                                Log.w("daystext",String.valueOf(everydaytext));
+                                lessons[col][everydaytext].setText(Html.fromHtml("<b> "
                                         + subject[0]
                                         + " </b><small>"
                                         + roomnr[0]
@@ -253,13 +257,18 @@ public class Timetable extends Fragment
                             roomnr[v] = (String) rooms[v].get(0);
 
                             int col = v + 1;
-                            lessons[col][1].setText(Html.fromHtml("<b>" + subject[v] + "</b>" + "<br/>" + "<small>" + roomnr[v] + "</small>"));
+                            int everydaytext = everyday + 1;
+                            Log.w("daystext",String.valueOf(everydaytext));
+                            lessons[col][everydaytext].setText(Html.fromHtml("<b>" + subject[v] + "</b>" + "<br/>" + "<small>" + roomnr[v] + "</small>"));
                         }
+                    }
+                    catch (Exception e)
+                    {
+                       // Log.i("empty string", "empty string");
+                    }
                 }
-                catch (Exception e)
-                {
-                    Log.i("empty string","empty string");
-                }
+                Log.w("mytag","newday");
+                num++;
             }
 
         }
@@ -277,7 +286,6 @@ public class Timetable extends Fragment
         String[] newitems = new String[11];
         int fin = 0;
 
-        int monday = 0;
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
         int date = cal.get(Calendar.DATE);
@@ -315,43 +323,43 @@ public class Timetable extends Fragment
 
         if (mo == 0)
         {
-            res = 4;
+            res = 2;
         }
         else if (mo ==1)
         {
-            res = 5;
+            res = 3;
         }
         else if (mo ==2)
         {
-            res = 6;
+            res = 4;
         }
         else if (mo ==3)
         {
-            res = 10;
+            res = 8;
         }
         else if (mo ==4)
         {
-            res = 7;
+            res = 5;
         }
         else if (mo ==5)
         {
-            res = 8;
+            res = 9;
         }
         else if (mo ==6)
         {
-            res = 9;
+            res = 6;
         }
         else if (mo ==7)
         {
-            res = 2;
+            res = 7;
         }
         else if (mo ==8)
         {
-            res = 3;
+            res = 0;
         }
         else if (mo ==9)
         {
-            res = 0;
+            res = 1;
         }
         else if (mo ==10)
         {
