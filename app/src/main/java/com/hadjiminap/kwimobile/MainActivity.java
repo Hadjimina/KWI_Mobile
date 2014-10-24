@@ -41,10 +41,6 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        //Setup Timetable as Fragment
-        //selectItem(0);
-
-
         //Linking and setup of variables
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout1);
         menus = getResources().getStringArray(R.array.menu);
@@ -108,6 +104,9 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         //GET JSON FROM ASYNC FROM LOGIN.CLASS
         Bundle extras = getIntent().getExtras();
         String sender = extras.getString("sender");
+        //Log.w("iutz", String.valueOf(sender));
+        
+
         return sender;
     }
 

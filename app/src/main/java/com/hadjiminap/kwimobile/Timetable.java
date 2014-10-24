@@ -156,14 +156,22 @@ public class Timetable extends Fragment
         try {
             JSONObject json = new JSONObject(jdata);
 
+            Log.w("jkl",String.valueOf(json));
+
             Iterator<String> iter = json.keys();
 
             int i = 0;
             while (iter.hasNext())
             {
-
+                //Log.w("mytag", String.valueOf(iter.next())+"a");
                 iteratorhandling[i] = iter.next();
                 i++;
+
+            }
+
+            for (int u = 0; u < 10;u++)
+            {
+                Log.w("ASDF", String.valueOf(iteratorhandling[u]));
             }
 
             //monday check gives location in array
