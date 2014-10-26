@@ -94,7 +94,7 @@ public class Login extends Activity
             {
                 String input = usr.getText().toString();
 
-                if (hasFocususr)
+                if (hasFocususr && input.equals("Benutzername"))
                 {
                     usr.setBackgroundDrawable(getResources().getDrawable(R.drawable.apptheme_textfield_activated_holo_light));
                     usr.setText("");
@@ -119,7 +119,7 @@ public class Login extends Activity
             {
                 String input = pwd.getText().toString();
 
-                if (hasFocus)
+                if (hasFocus && input.equals("Passwort"))
                 {
                     pwd.setBackgroundDrawable(getResources().getDrawable(R.drawable.apptheme_textfield_activated_holo_light));
                     pwd.setText("");
@@ -246,12 +246,13 @@ public class Login extends Activity
 
             String line = "";
             String serverResponseMessage = "";
-            while ((line = reader.readLine()) != null) {
-
+            while ((line = reader.readLine()) != null)
+            {
                 serverResponseMessage += line;
             }
 
             response.close();
+
             //FOR TESTING ONLY
            /* final String TAG = "Something";
             if (serverResponseMessage.length() > 4000) {
@@ -341,17 +342,14 @@ public class Login extends Activity
             {
                 progressBar.setVisibility(View.INVISIBLE);
                 Toast.makeText(Login.this, "Der Server ist unerreichbar.\nVersuchen Sie es Später nochmals.", Toast.LENGTH_SHORT).show();
-                Log.w("unknown",data);
             }
             else if (data.equals("timeout"))
             {
                 progressBar.setVisibility(View.INVISIBLE);
                 Toast.makeText(Login.this, "Der Server ist unerreichbar.\nVersuchen Sie es Später nochmals.", Toast.LENGTH_SHORT).show();
-                Log.w("timeout",data);
             }
             else
             {
-                Log.w("mytasdfasdfag",data);
                 Intent switcher = new Intent(Login.this, MainActivity.class);
                 switcher.putExtra("sender",data);
                 Login.this.startActivity(switcher);

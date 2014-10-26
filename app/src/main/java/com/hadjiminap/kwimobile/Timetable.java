@@ -1,9 +1,12 @@
 package com.hadjiminap.kwimobile;
 
 import android.app.Fragment;
+import android.app.Service;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -153,10 +156,24 @@ public class Timetable extends Fragment
         MainActivity activity = (MainActivity) getActivity();
         String jdata = activity.getData();
 
-        try {
-            JSONObject json = new JSONObject(jdata);
+        //Converting JSON string to linkedhashmap to keep order
+      /*  Map<String,String> map = new HashMap<String,String>();
+        ObjectMapper mapper = new ObjectMapper();
 
-            Log.w("jkl",String.valueOf(json));
+        try
+        {
+            //convert JSON string to Map
+            map = mapper.readValue(jdata, new TypeReference<HashMap<String,String>>(){});
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }*/
+
+
+        try {
+
+            JSONObject json = new JSONObject(jdata);
 
             Iterator<String> iter = json.keys();
 
@@ -189,6 +206,7 @@ public class Timetable extends Fragment
             dates[1] = iteratorhandling[9];
 
             num = changenum(mondaycheck(iteratorhandling));
+
             int everyday;
 
             for (everyday = 0; everyday <= 3; everyday++ )
@@ -390,8 +408,9 @@ public class Timetable extends Fragment
         cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
         int date = cal.get(Calendar.DATE);
 
-        for (int q = 0; q < 11;q ++)
+        for (int q = 0; q < 10;q ++)
         {
+            Log.w("items",String.valueOf(items[q]));
             newitems[q]= items[q].substring(8);
 
             char c = newitems[q].charAt(0);
@@ -472,6 +491,29 @@ public class Timetable extends Fragment
     public void onBackPressed()
     {
         //Don't do anything when back button is pressed
+    }
+
+    public class service extends Service
+    {
+        @Override
+        public void onCreate() {
+            super.onCreate();
+        }
+
+        @Override
+        public void onDestroy() {
+            super.onDestroy();
+        }
+
+        @Override
+        public int onStartCommand(Intent intent, int flags, int startId) {
+            return super.onStartCommand(intent, flags, startId);
+        }
+
+        @Override
+        public IBinder onBind(Intent intent) {
+            return null;
+        }
     }
 
 

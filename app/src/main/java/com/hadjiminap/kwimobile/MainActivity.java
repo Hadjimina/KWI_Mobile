@@ -22,7 +22,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends Activity implements AdapterView.OnItemClickListener
 {
@@ -104,8 +103,6 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         //GET JSON FROM ASYNC FROM LOGIN.CLASS
         Bundle extras = getIntent().getExtras();
         String sender = extras.getString("sender");
-        //Log.w("iutz", String.valueOf(sender));
-        
 
         return sender;
     }
@@ -114,7 +111,6 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     public void onItemClick(AdapterView<?> parent, View view, int position, long id)
     {
         selectItem(position);
-        Toast.makeText(MainActivity.this," opened", Toast.LENGTH_SHORT).show();
     }
 
     public void selectItem(int position)
@@ -126,10 +122,10 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
                 newFragment = new Timetable();
                 break;
             case 1:
-                newFragment = new improvements();
+                newFragment = new settings();
                 break;
             case 2:
-                newFragment = new testfrag();
+                newFragment = new improvements();
                 break;
             case 3:
                 newFragment = new testfrag();

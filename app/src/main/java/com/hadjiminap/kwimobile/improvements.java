@@ -28,6 +28,8 @@ public class improvements extends Fragment
         }
 
         return inflater.inflate(R.layout.main, null);
+
+
     }
 
     public void onBackPressed()
