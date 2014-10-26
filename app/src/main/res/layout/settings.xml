@@ -20,24 +20,28 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/checkBox"
-            android:layout_alignBottom="@+id/textView"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="28dp" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Stellt das Gerät automatisch auf lautlos, falls Sie eine Lektion haben"
             android:id="@+id/textView2"
-            android:layout_marginRight="28dp"
             android:layout_below="@+id/textView"
             android:layout_alignLeft="@+id/textView"
-            android:layout_alignStart="@+id/textView" />
+            android:layout_alignStart="@+id/textView"
+            android:layout_marginRight="90dp"/>
+
+        <ToggleButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New ToggleButton"
+            android:id="@+id/toggleButton2"
+            android:layout_alignTop="@+id/textView"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="28dp"
+            android:onClick="onToggleClicked"/>
+
+
     </RelativeLayout>
 </LinearLayout>

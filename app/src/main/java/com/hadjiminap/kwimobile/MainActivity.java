@@ -188,7 +188,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     {
         private Context context;
         String[] menus;
-        int[] images = {R.drawable.icon1, R.drawable.ic_action_1, R.drawable.ic_action_2, R.drawable.ic_action_3, R.drawable.ic_action_4};
+        int[] images = {R.drawable.icon1, R.drawable.icon2, R.drawable.ic_action_2, R.drawable.ic_action_3, R.drawable.ic_action_4};
         Typeface tf;
 
 

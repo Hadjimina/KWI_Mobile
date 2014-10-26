@@ -1,43 +1,59 @@
 package com.hadjiminap.kwimobile;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 public class settings extends Fragment
 {
+    TextView t1,t2;
+    Typeface tf;
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState)
     {
-        View ret =  inflater.inflate(R.layout.timetable, null);
+        View ret =  inflater.inflate(R.layout.settings, null);
 
-        CheckBox automute = (CheckBox) ret.findViewById(R.id.checkBox);
-        TextView t1 = (TextView) ret.findViewById(R.id.textView);
-        TextView t2 = (TextView) ret.findViewById(R.id.textView2);
+        ToggleButton automute = (ToggleButton) ret.findViewById(R.id.toggleButton2);
+         t1 = (TextView) ret.findViewById(R.id.textView);
+         t2 = (TextView) ret.findViewById(R.id.textView2);
 
-        Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "font.ttf");
+
+        //Set Font
+        tf = Typeface.createFromAsset(getActivity().getAssets(), "font.ttf");
+        automute.setTypeface(tf);
         t1.setTypeface(tf);
         t2.setTypeface(tf);
 
-        if (automute.isChecked())
+        return ret;
+    }
+
+    public void onToggleClicked(View view)
+    {
+        boolean on = ((ToggleButton) view).isChecked();
+
+        if (on)
         {
-            t1.setText("potoat");
+            getActivity().startService(new Intent(getActivity(), Timetable.service.class));
+        }
+        else
+        {
+            // Disable vibrate
         }
 
-
-        return ret;
     }
 
     public void onBackPressed()
     {
         //Don't do anything when back button is pressed
     }
+
 
 }
 
