@@ -1,6 +1,8 @@
 package com.hadjiminap.kwimobile;
 
+import android.app.ActivityManager;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -14,7 +16,6 @@ public class settings extends Fragment
 {
     TextView t1,t2;
     Typeface tf;
-
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState)
     {
@@ -31,22 +32,48 @@ public class settings extends Fragment
         t1.setTypeface(tf);
         t2.setTypeface(tf);
 
+        automute.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                boolean on = ((ToggleButton) v).isChecked();
+                boolean check = isMyServiceRunning(getActivity().getApplicationContext());
+
+                if (on)
+                {
+                        getActivity().startService(new Intent(getActivity(), Timetable.mutechecker.class));
+                }
+                else
+                {
+                    if (check== true)
+                    {
+                        getActivity().stopService(new Intent(getActivity(), Timetable.mutechecker.class));
+                    }
+                    else
+                    {
+                        //NOTHING IF NOT RUNNING
+                    }
+
+                }
+            }
+        });
+
         return ret;
     }
 
-    public void onToggleClicked(View view)
+    private boolean isMyServiceRunning(Context mContext)
     {
-        boolean on = ((ToggleButton) view).isChecked();
+        ActivityManager manager = (ActivityManager) mContext.getSystemService(Context.ACTIVITY_SERVICE);
 
-        if (on)
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE))
         {
-            getActivity().startService(new Intent(getActivity(), Timetable.service.class));
+            if (Timetable.mutechecker.class.getName().equals(service.service.getClassName()))
+            {
+                return true;
+            }
         }
-        else
-        {
-            // Disable vibrate
-        }
-
+        return false;
     }
 
     public void onBackPressed()
