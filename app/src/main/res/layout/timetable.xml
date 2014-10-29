@@ -184,7 +184,7 @@
                                   android:gravity="center_horizontal"></TextView>
 
                     </TableRow>
-                    <TableRow android:id="@+id/row11" android:layout_width="match_parent" android:layout_height="wrap_content">
+                    <TableRow android:id="@+id/row11" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="1dp">
 
                         <TextView android:background="@drawable/cellshapeside" android:layout_height="@dimen/tbheight" android:id="@+id/t10" android:layout_width="@dimen/tbborderwidth" android:text="15:10"
                                   android:gravity="center_horizontal"></TextView>
