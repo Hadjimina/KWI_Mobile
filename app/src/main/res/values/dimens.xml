@@ -3,7 +3,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="tbheight">65dp</dimen>
-    <dimen name="tbwidth">52dp</dimen>
+    <dimen name="tbwidth">60dp</dimen>
     <dimen name="tbborderwidth">44dp</dimen>
     <dimen name="tbheightland">52dp</dimen>
     <dimen name="tbwidthland">107.5dp</dimen>

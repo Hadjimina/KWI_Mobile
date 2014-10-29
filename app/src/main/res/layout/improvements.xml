@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainContent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="center_horizontal|top">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:gravity="center"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Zusätzliche Funktionalität wünschen"
+            android:id="@+id/feature"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="33dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email senden"
+            android:id="@+id/sendfeature"
+            android:layout_below="@+id/feature"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:gravity="center"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Fehler in der App berichten"
+            android:id="@+id/bug"
+            android:layout_below="@+id/sendfeature"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="33dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email senden"
+            android:id="@+id/sendbug"
+            android:layout_below="@+id/bug"
+            android:layout_alignRight="@+id/sendfeature"
+            android:layout_alignEnd="@+id/sendfeature"
+            android:layout_marginTop="8dp" />
+    </RelativeLayout>
+</LinearLayout>
+</FrameLayout>

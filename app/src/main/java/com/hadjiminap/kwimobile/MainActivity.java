@@ -127,12 +127,6 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
             case 2:
                 newFragment = new improvements();
                 break;
-            case 3:
-                newFragment = new testfrag();
-                break;
-            case 4:
-                newFragment = new testfrag();
-                break;
         }
         fm.beginTransaction().replace(R.id.mainContent, newFragment).commit();
 
@@ -188,7 +182,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     {
         private Context context;
         String[] menus;
-        int[] images = {R.drawable.icon1, R.drawable.icon2, R.drawable.ic_action_2, R.drawable.ic_action_3, R.drawable.ic_action_4};
+        int[] images = {R.drawable.icon1, R.drawable.icon2, R.drawable.icon3};
         Typeface tf;
 
 
@@ -233,6 +227,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
             ImageView titleImageView = (ImageView) row.findViewById(R.id.imageView1);
             titleTextView.setTypeface(tf);
             titleTextView.setText(menus[position]);
+
             titleImageView.setImageResource(images[position]);
 
 
