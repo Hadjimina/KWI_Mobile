@@ -3,7 +3,6 @@ package com.hadjiminap.kwimobile;
 import android.app.Fragment;
 import android.app.Service;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -108,7 +107,7 @@ public class Timetable extends Fragment
 
 
         //Orientation Handling
-        int nowOrientation = getResources().getConfiguration().orientation;
+       /* int nowOrientation = getResources().getConfiguration().orientation;
         if (nowOrientation == Configuration.ORIENTATION_LANDSCAPE)
         {
             TableRow.LayoutParams parameter = (TableRow.LayoutParams) lessons[1][1].getLayoutParams();
@@ -148,27 +147,13 @@ public class Timetable extends Fragment
         else
         {
             // Portrait
-        }
+        }*/
 
 
 
         //Receiving JSON Data
         MainActivity activity = (MainActivity) getActivity();
         String jdata = activity.getData();
-
-        //Converting JSON string to linkedhashmap to keep order
-      /*  Map<String,String> map = new HashMap<String,String>();
-        ObjectMapper mapper = new ObjectMapper();
-
-        try
-        {
-            //convert JSON string to Map
-            map = mapper.readValue(jdata, new TypeReference<HashMap<String,String>>(){});
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }*/
 
 
         try {
