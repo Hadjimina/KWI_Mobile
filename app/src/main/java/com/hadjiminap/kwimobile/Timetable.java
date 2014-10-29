@@ -1,11 +1,8 @@
 package com.hadjiminap.kwimobile;
 
 import android.app.Fragment;
-import android.app.Service;
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -90,9 +87,6 @@ public class Timetable extends Fragment
         lessons[9][0].setText(Html.fromHtml("<p>15:10</p><p>15:55</p>"));
         lessons[10][0].setText(Html.fromHtml("<p>16:00</p><p>16:45</p>"));
 
-
-
-
         //Set times to bold font
         for (int i = 0; i < 11; i++)
         {
@@ -157,8 +151,10 @@ public class Timetable extends Fragment
                         {
                             hours[v] = days[everyday].getJSONArray(Integer.toString(v));
 
-                            if (hours[v].length() == 2) {
-                                for (int o = 0; o < 2; o++) {
+                            if (hours[v].length() == 2)
+                            {
+                                for (int o = 0; o < 2; o++)
+                                {
                                     lektion[v][o] = hours[v].getJSONObject(o);
 
                                     subject[o] = (String) lektion[v][o].get("subject");
@@ -181,8 +177,11 @@ public class Timetable extends Fragment
                                             + roomnr[1]
                                             + "</small>"));
                                 }
-                            } else if (hours[v].length() == 3) {
-                                for (int o = 0; o < 3; o++) {
+                            }
+                            else if (hours[v].length() == 3)
+                            {
+                                for (int o = 0; o < 3; o++)
+                                {
                                     lektion[v][o] = hours[v].getJSONObject(o);
 
                                     subject[o] = (String) lektion[v][o].get("subject");
@@ -210,8 +209,10 @@ public class Timetable extends Fragment
                                             + "</small>"));
                                 }
                             }
-                            else if (hours[v].length() == 4) {
-                                for (int o = 0; o < 4; o++) {
+                            else if (hours[v].length() == 4)
+                            {
+                                for (int o = 0; o < 4; o++)
+                                {
                                     lektion[v][o] = hours[v].getJSONObject(o);
 
                                     subject[o] = (String) lektion[v][o].get("subject");
@@ -236,7 +237,8 @@ public class Timetable extends Fragment
                                             + "</small></p>"));
                                 }
                             }
-                            else {
+                            else
+                            {
                                 lektion[v][0] = hours[v].getJSONObject(0);
 
                                 subject[v] = (String) lektion[v][0].get("subject");
@@ -256,7 +258,9 @@ public class Timetable extends Fragment
                                         + roomnr[v]
                                         + "</small>"));
                             }
-                        } catch (Exception e) {
+                        }
+                        catch (Exception e)
+                        {
                             Log.i("empty string", "empty string");
                         }
 
@@ -267,11 +271,14 @@ public class Timetable extends Fragment
 
                         daysarray[everyday] = json.getJSONArray(dates[num]);
 
-                        try {
+                        try
+                        {
                             hours[v] = daysarray[everyday].getJSONArray(v);
 
-                            if (hours[v].length() == 2) {
-                                for (int o = 0; o < 2; o++) {
+                            if (hours[v].length() == 2)
+                            {
+                                for (int o = 0; o < 2; o++)
+                                {
                                     lektion[v][o] = hours[v].getJSONObject(o);
 
                                     subject[o] = (String) lektion[v][o].get("subject");
@@ -294,8 +301,11 @@ public class Timetable extends Fragment
                                                     + roomnr[1]
                                                     + "</small>"));
                                 }
-                            } else if (hours[v].length() == 3) {
-                                for (int o = 0; o < 3; o++) {
+                            }
+                            else if (hours[v].length() == 3)
+                            {
+                                for (int o = 0; o < 3; o++)
+                                {
                                     lektion[v][o] = hours[v].getJSONObject(o);
 
                                     subject[o] = (String) lektion[v][o].get("subject");
@@ -323,8 +333,10 @@ public class Timetable extends Fragment
                                             + "</small>"));
                                 }
                             }
-                            else if (hours[v].length() == 4) {
-                                for (int o = 0; o < 4; o++) {
+                            else if (hours[v].length() == 4)
+                            {
+                                for (int o = 0; o < 4; o++)
+                                {
                                     lektion[v][o] = hours[v].getJSONObject(o);
 
                                     subject[o] = (String) lektion[v][o].get("subject");
@@ -349,7 +361,8 @@ public class Timetable extends Fragment
                                                     + "</small></p>"));
                                 }
                             }
-                            else {
+                            else
+                            {
                                 lektion[v][0] = hours[v].getJSONObject(0);
 
                                 subject[v] = (String) lektion[v][0].get("subject");
@@ -370,7 +383,9 @@ public class Timetable extends Fragment
                                         + "</small>"));
                             }
 
-                        } catch (Exception o) {
+                        }
+                        catch (Exception o)
+                        {
                             Log.i("empty string", "empty string");
                         }
                     }
@@ -386,6 +401,7 @@ public class Timetable extends Fragment
 
         return ret;
     }
+
 
     public int mondaycheck(String items[])
     {
@@ -482,32 +498,7 @@ public class Timetable extends Fragment
         //Don't do anything when back button is pressed
     }
 
-    public class mutechecker extends Service
-    {
-        @Override
-        public void onCreate()
-        {
-            super.onCreate();
-        }
 
-        @Override
-        public void onDestroy()
-        {
-            super.onDestroy();
-
-        }
-
-        @Override
-        public int onStartCommand(Intent intent, int flags, int startId)
-        {
-            return super.onStartCommand(intent, flags, startId);
-        }
-
-        @Override
-        public IBinder onBind(Intent intent) {
-            return null;
-        }
     }
 
 
-}

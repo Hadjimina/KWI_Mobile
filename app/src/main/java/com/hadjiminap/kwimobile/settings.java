@@ -42,13 +42,14 @@ public class settings extends Fragment
 
                 if (on)
                 {
-                        getActivity().startService(new Intent(getActivity(), Timetable.mutechecker.class));
+                    Intent i = new Intent(getActivity(), Mute.class);
+                    getActivity().startService(i);
                 }
                 else
                 {
                     if (check== true)
                     {
-                        getActivity().stopService(new Intent(getActivity(), Timetable.mutechecker.class));
+                        getActivity().stopService(new Intent(getActivity(), Mute.class));
                     }
                     else
                     {
@@ -68,7 +69,7 @@ public class settings extends Fragment
 
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE))
         {
-            if (Timetable.mutechecker.class.getName().equals(service.service.getClassName()))
+            if (Mute.class.getName().equals(service.service.getClassName()))
             {
                 return true;
             }

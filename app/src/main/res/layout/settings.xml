@@ -40,7 +40,9 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_marginRight="28dp"
-            android:onClick="onToggleClicked"/>
+            android:onClick="onToggleClicked"
+            android:textOff="Aus"
+            android:textOn="An" />
 
 
     </RelativeLayout>

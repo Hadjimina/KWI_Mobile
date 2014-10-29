@@ -95,7 +95,6 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         drawerLayout.setDrawerListener(drawerListener);
 
     }
-
     //SEND DATA TO FRAGMENT
     public String getData()
     {
@@ -103,9 +102,15 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         //GET JSON FROM ASYNC FROM LOGIN.CLASS
         Bundle extras = getIntent().getExtras();
         String sender = extras.getString("sender");
+        return sender;
+    }
+    public String getInfo()
+    {
+        String sender = "asdf";
 
         return sender;
     }
+
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id)
