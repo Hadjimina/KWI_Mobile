@@ -62,7 +62,8 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         int actionBarTitle = Resources.getSystem().getIdentifier("action_bar_title", "id", "android");
         TextView actionBarTitleView = (TextView) getWindow().findViewById(actionBarTitle);
         Typeface tfbar = Typeface.createFromAsset(getAssets(), "font.ttf");
-        if (actionBarTitleView != null) {
+        if (actionBarTitleView != null)
+        {
             actionBarTitleView.setTypeface(tfbar);
         }
 
