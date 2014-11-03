@@ -108,6 +108,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     private void parseData() {
         ///// EXAMPLE: new Lesson class
         String jdata = getData();
+
         try {
             JSONObject main_json = new JSONObject(jdata);
             Iterator<String> main_iter = main_json.keys();
@@ -139,7 +140,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
                 }
             }
         } catch (JSONException e) {
-            Log.e("ERROR", e.toString());
+            e.printStackTrace();
         }
 
         ///// /EXAMPLE

@@ -75,10 +75,10 @@ public class Lesson implements Parcelable {
 
             if (room_subject.length()==3)
             {
-                JSONObject canceled_obj = room_subject.getJSONObject("diff");
-                String canceled_string = canceled_obj.toString();
+                //String canceled_string = String.valueOf(room_subject.getJSONObject("diff"));
+                String canceled_string = room_subject.getString("diff");
 
-                if (canceled_string == "-")
+                if (canceled_string.equals("-"))
                 {
                     iscanceled = true;
                 }
