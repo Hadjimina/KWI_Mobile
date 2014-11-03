@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class improvements extends Fragment
+public class Improvements extends Fragment
 {
 
 

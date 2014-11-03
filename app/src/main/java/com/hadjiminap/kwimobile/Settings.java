@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-public class settings extends Fragment
+public class Settings extends Fragment
 {
     TextView t1,t2;
     Typeface tf;
@@ -42,7 +42,12 @@ public class settings extends Fragment
 
                 if (on)
                 {
-                    Intent i = new Intent(getActivity(), Mute.class);
+                    MainActivity activity = (MainActivity)getActivity();
+
+                    Intent i = new Intent(activity, Mute.class);
+                    Bundle b = new Bundle();
+                    b.putParcelableArrayList("lessons", activity.getLessons());
+                    i.putExtra("lessons", b);
                     getActivity().startService(i);
                 }
                 else

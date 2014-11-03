@@ -254,7 +254,7 @@ public class Login extends Activity
             response.close();
 
             //FOR TESTING ONLY
-           /* final String TAG = "Something";
+           final String TAG = "Something";
             if (serverResponseMessage.length() > 4000) {
                 Log.w(TAG, "sb.length = " + serverResponseMessage.length());
                 int chunkCount = serverResponseMessage.length() / 4000;     // integer division
@@ -268,8 +268,7 @@ public class Login extends Activity
                 }
             } else {
                 Log.w(TAG, serverResponseMessage.toString());
-            }*/
-
+            }
             return serverResponseMessage;
         }
         catch (UnknownHostException e)

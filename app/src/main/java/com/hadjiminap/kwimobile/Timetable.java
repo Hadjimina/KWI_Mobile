@@ -13,7 +13,6 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -32,10 +31,10 @@ public class Timetable extends Fragment
     public String[] subject = new String [11];
     public String[] roomnr = new String [11];
     public JSONArray[] rooms = new JSONArray[11];
-    public int num,col,everyday,everydaytext,v ;
+    public int num,col,everyday,everydaytext,v,mondaydate,tuesdaydate,wednesdaydate,thursdaydate,fridaydate ;
     TableRow [] rows = new TableRow[11];
     public TextView[][] lessons = new TextView[11][6];
-
+    private ArrayList<Lesson> less = new ArrayList<Lesson>();
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState)
     {
@@ -101,11 +100,100 @@ public class Timetable extends Fragment
             lessons[0][i].setText(Html.fromHtml("<b>" + txt + "</b>"));
         }
 
+
+
+
         //Receiving JSON Data
         MainActivity activity = (MainActivity) getActivity();
-        String jdata = activity.getData();
+        less = activity.getLessons();
+
+            //Log.w("subject", String.valueOf(less.get(2).getTimeIndex()));
+
+        Iterator <Lesson> it_throughdays = less.iterator();
+
+        while (it_throughdays.hasNext())
+        {
+            Lesson less_on = it_throughdays.next();
+
+            if (less_on.getDay()== 6)
+            {
+                continue;
+            }
+            //Log.w("time",String.valueOf(less_on.getTimeIndex()));
+            //Log.w("day",String.valueOf(less_on.getDay()));
+            int time = less_on.getTimeIndex()+1;
+            int day = less_on.getDay();
+
+            Log.w("length", String.valueOf(less_on.getLength()));
+            if (less_on.getLength() == 1)
+            {
+                lessons[time][day].setText(Html.fromHtml(
+                        "<b>"
+                        +less_on.getSubject().get(0)
+                        +"</b><br/><small>"
+                        +less_on.getRooms().get(0)
+                        +"</small>"
+                ));
+            }
+            else if (less_on.getLength() == 2)
+            {
+                lessons[time][day].setText(Html.fromHtml(
+                        "<b> "
+                       + less_on.getSubject().get(0)
+                       + " </b><small>"
+                       + less_on.getRooms().get(0)
+                       + "</small>"
+                       + "<br /><b> "
+                       + less_on.getSubject().get(1)
+                       + " </b><small>"
+                       + less_on.getRooms().get(1)
+                       + "</small>"
+                ));
+            }
+            else if (less_on.getLength() == 3)
+            {
+                lessons[time][day].setText(Html.fromHtml(
+                         "<b> "
+                        + less_on.getSubject().get(0)
+                        + " </b><small>"
+                        + less_on.getRooms().get(0)
+                        + "</small><br />"
+                        + "<b> "
+                        + less_on.getSubject().get(1)
+                        + " </b><small>"
+                        + less_on.getRooms().get(1)
+                        + "</small><br />"
+                        + "<b> "
+                        + less_on.getSubject().get(2)
+                        + " </b><small>"
+                        + less_on.getRooms().get(2)
+                        + "</small>"
+                ));
+
+            }
+            else if (less_on.getLength()==4)
+            {
+                lessons[time][day].setText(Html.fromHtml(
+                        "<b> "
+                        + less_on.getSubject().get(0)
+                        + "</b><br /><small>"
+                        + less_on.getRooms().get(0)
+                        + " "
+                        + less_on.getRooms().get(1)
+                        + " <br />"
+                        + less_on.getRooms().get(2)
+                        + " "
+                        + less_on.getRooms().get(3)
+                        + "</small></p>"
+                ));
+            }
+
+            //lessons[less_on.getTimeIndex()][less_on.getDay()].setText(Html.fromHtml(""));
 
 
+        }
+
+/*
         try {
 
             JSONObject json = new JSONObject(jdata);
@@ -119,6 +207,22 @@ public class Timetable extends Fragment
                 i++;
 
             }
+
+            mondaydate = daycheck(vals, "monday");
+            tuesdaydate = daycheck(vals, "tuesday");
+            wednesdaydate = daycheck(vals, "wednesday");
+            thursdaydate = daycheck(vals, "thursday");
+            fridaydate = daycheck(vals, "friday");
+
+            Log.i("array", String.valueOf(json));
+
+
+           days[1] = json.getJSONObject(iteratorhandling[mondaydate]);
+            lesson[1]= Lesson.fromJSON(1,days[1]) ;
+
+         Log.i("lesson", String.valueOf(days[1]));
+
+            //num = changenum(mondaycheck(iteratorhandling));
 
             //monday check gives location in array
             //method to get position in dates array
@@ -134,7 +238,7 @@ public class Timetable extends Fragment
             dates[0] = iteratorhandling[8];
             dates[1] = iteratorhandling[9];
 
-            num = changenum(mondaycheck(iteratorhandling));
+
 
             for (everyday = 0; everyday <= 4; everyday++ )
             {
@@ -149,9 +253,10 @@ public class Timetable extends Fragment
 
                         try
                         {
-                            hours[v] = days[everyday].getJSONArray(Integer.toString(v));
 
-                            if (hours[v].length() == 2)
+                            Lesson l1 = Lesson.fromJSON(everyday,days[everyday].getJSONArray(Integer.toString(v)));
+
+                            if (l1.length() == 2)
                             {
                                 for (int o = 0; o < 2; o++)
                                 {
@@ -393,26 +498,51 @@ public class Timetable extends Fragment
                 num++;
             }
 
+
+
         }
         catch (JSONException e)
         {
             e.printStackTrace();
-        }
+        }*/
 
         return ret;
     }
 
 
-    public int mondaycheck(String items[])
+    public int daycheck(ArrayList list,String day)
     {
         int[] checker = new int[11];
         String[] newitems = new String[11];
         int fin = 0;
 
+        Iterator it = list.iterator();
+
         Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        if (day == "monday"){
+            cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        }
+        else if (day == "tuesday"){
+            cal.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
+        }
+        else if (day == "wednesday"){
+            cal.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
+        }
+        else if (day == "thursday"){
+            cal.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
+        }
+        else if (day == "fridayday"){
+            cal.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
+        }
+
+
         int date = cal.get(Calendar.DATE);
 
+        while (it.hasNext()){
+            String loc = (String) it.next();
+            String date_list = (String) list.get(Integer.parseInt(loc));
+        }
+/*
         for (int q = 0; q < 10;q ++)
         {
             Log.w("items",String.valueOf(items[q]));
@@ -438,8 +568,11 @@ public class Timetable extends Fragment
                 fin = q;
             }
         }
+        */
         return fin;
     }
+
+
 
     public int changenum (int mo)
      {

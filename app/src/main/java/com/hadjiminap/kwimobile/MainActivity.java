@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +24,13 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+
 public class MainActivity extends Activity implements AdapterView.OnItemClickListener
 {
 
@@ -32,6 +40,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     private CustomAdapter myAdapter;
     private String[] menus;
     private TextView[] lesson;
+    private ArrayList<Lesson> lessons = new ArrayList<Lesson>();
     public String sender = "youshouldnotseethis";
 
     @Override
@@ -62,8 +71,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         int actionBarTitle = Resources.getSystem().getIdentifier("action_bar_title", "id", "android");
         TextView actionBarTitleView = (TextView) getWindow().findViewById(actionBarTitle);
         Typeface tfbar = Typeface.createFromAsset(getAssets(), "font.ttf");
-        if (actionBarTitleView != null)
-        {
+        if (actionBarTitleView != null) {
             actionBarTitleView.setTypeface(tfbar);
         }
 
@@ -74,7 +82,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         fm.beginTransaction().replace(R.id.mainContent, newFragment1).commit();
         setTitle(menus[0]);
 
-
+        parseData();
 
         //Drawer listener open close setup
         drawerListener= new ActionBarDrawerToggle(this,drawerLayout,R.drawable.ic_navigation_drawer, R.string.drawer_open, R.string.drawer_close)
@@ -96,6 +104,51 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         drawerLayout.setDrawerListener(drawerListener);
 
     }
+
+    private void parseData() {
+        ///// EXAMPLE: new Lesson class
+        String jdata = getData();
+        try {
+            JSONObject main_json = new JSONObject(jdata);
+            Iterator<String> main_iter = main_json.keys();
+
+            while (main_iter.hasNext()) {
+
+                String key = main_iter.next();
+                Log.i("", key);
+
+                JSONObject day_json = main_json.optJSONObject(key);
+
+                if (day_json == null) {
+                    // whut?? sometimes it's an array; whats the meaning of this?
+                    JSONArray day_json_array = main_json.optJSONArray(key);
+                    // TODO: do whatever is necessary if it's an array
+
+                } else {
+                    // as we would expect
+                    Iterator<String> lesson_nr_iter = day_json.keys();
+
+
+                    while (lesson_nr_iter.hasNext()) {
+                        String lesson_nr_str = lesson_nr_iter.next();
+
+                        int lesson_nr = Integer.parseInt(lesson_nr_str);
+                        JSONArray room_subject_arr = day_json.getJSONArray(lesson_nr_str);
+                        lessons.add(Lesson.fromJSON(lesson_nr, room_subject_arr,key));
+                    }
+                }
+            }
+        } catch (JSONException e) {
+            Log.e("ERROR", e.toString());
+        }
+
+        ///// /EXAMPLE
+    }
+
+    ArrayList<Lesson> getLessons() {
+        return lessons;
+    }
+
     //SEND DATA TO FRAGMENT
     public String getData()
     {
@@ -105,13 +158,6 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         String sender = extras.getString("sender");
         return sender;
     }
-    public String getInfo()
-    {
-        String sender = "asdf";
-
-        return sender;
-    }
-
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id)
@@ -128,10 +174,10 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
                 newFragment = new Timetable();
                 break;
             case 1:
-                newFragment = new settings();
+                newFragment = new Settings();
                 break;
             case 2:
-                newFragment = new improvements();
+                newFragment = new Improvements();
                 break;
         }
         fm.beginTransaction().replace(R.id.mainContent, newFragment).commit();
