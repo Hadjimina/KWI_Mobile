@@ -196,6 +196,7 @@ public class Login extends Activity
             }
 
         }
+        //TODO: error if wrong credentials
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(username.getWindowToken(), 0);
 

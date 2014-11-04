@@ -64,7 +64,7 @@ public class Settings extends Fragment
                 }
             }
         });
-
+        //TODO: remember toggle state;
         return ret;
     }
 

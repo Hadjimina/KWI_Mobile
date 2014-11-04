@@ -191,6 +191,7 @@ public class Timetable extends Fragment
             if (less_on.isCanceled())
             {
                 lessons[time][day].setTextColor(getResources().getColor(R.color.red));
+                //TODO: better mark deleted lesson
             }
         }
 
