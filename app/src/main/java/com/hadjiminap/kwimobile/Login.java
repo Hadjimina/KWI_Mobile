@@ -1,10 +1,12 @@
 package com.hadjiminap.kwimobile;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.media.AudioManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -25,6 +27,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -45,10 +48,10 @@ public class Login extends Activity
 {
     //Setup for remember me checkbox
     private CheckBox rememberme;
-    private SharedPreferences loginPreferences;
-    private SharedPreferences.Editor loginPrefsEditor;
+    private SharedPreferences loginPreferences,togglePreferences;
+    private SharedPreferences.Editor loginPrefsEditor,togglePrefsEditor;
     private Boolean saveLogin;
-    private static final int LONG_DELAY = 1000;
+    private AudioManager am;
 
 
     @Override
@@ -74,10 +77,17 @@ public class Login extends Activity
         loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
         loginPrefsEditor = loginPreferences.edit();
 
+
+
         //Set ProgressBar INVISIBLE
         progressBar.setVisibility(View.INVISIBLE);
 
-
+        //Check if mute is running
+        if (isMyServiceRunning(this.getApplicationContext()))
+        {
+            am= (AudioManager) getBaseContext().getSystemService(Context.AUDIO_SERVICE);
+            am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+        }
 
         //Set Font
         Typeface tf = Typeface.createFromAsset(getAssets(), "font.ttf");
@@ -158,6 +168,20 @@ public class Login extends Activity
         }
     }
 
+    private boolean isMyServiceRunning(Context mContext)
+    {
+        ActivityManager manager = (ActivityManager) mContext.getSystemService(Context.ACTIVITY_SERVICE);
+
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE))
+        {
+            if (Mute.class.getName().equals(service.service.getClassName()))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     //OnClick
     public void OnLoginClick(View v)
     {
@@ -181,22 +205,13 @@ public class Login extends Activity
         }
         else
         {
-            Log.w("else","ELSE");
             login.setClickable(false);
-            try
-            {
-                new Async().execute();
-                login.setClickable(true);
-            }
 
-            catch (Exception e)
-            {
-                Toast.makeText(Login.this, "Der Benutzername oder das Passwort sind falsch", Toast.LENGTH_LONG).show();
-                Log.w("mytag","usr or pwd");
-            }
+            new Async().execute();
+            login.setClickable(true);
 
         }
-        //TODO: error if wrong credentials
+
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(username.getWindowToken(), 0);
 
@@ -255,7 +270,7 @@ public class Login extends Activity
             response.close();
 
             //FOR TESTING ONLY
-           final String TAG = "Something";
+           /*final String TAG = "Something";
             if (serverResponseMessage.length() > 4000) {
                 Log.w(TAG, "sb.length = " + serverResponseMessage.length());
                 int chunkCount = serverResponseMessage.length() / 4000;     // integer division
@@ -269,7 +284,7 @@ public class Login extends Activity
                 }
             } else {
                 Log.w(TAG, serverResponseMessage.toString());
-            }
+            }*/
             return serverResponseMessage;
         }
         catch (UnknownHostException e)
@@ -279,6 +294,10 @@ public class Login extends Activity
         catch (SocketTimeoutException e)
         {
             return "timeout";
+        }
+        catch (FileNotFoundException e)
+        {
+            return "wrong";
         }
 
 
@@ -348,6 +367,11 @@ public class Login extends Activity
             {
                 progressBar.setVisibility(View.INVISIBLE);
                 Toast.makeText(Login.this, "Der Server ist unerreichbar.\nVersuchen Sie es Später nochmals.", Toast.LENGTH_SHORT).show();
+            }
+            else if (data.equals("wrong"))
+            {
+                progressBar.setVisibility(View.INVISIBLE);
+                Toast.makeText(Login.this, "Das Passwort oder der Benutzername ist falsch.", Toast.LENGTH_SHORT).show();
             }
             else
             {

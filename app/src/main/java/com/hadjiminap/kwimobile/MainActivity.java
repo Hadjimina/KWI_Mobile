@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -41,7 +43,8 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     private String[] menus;
     private TextView[] lesson;
     private ArrayList<Lesson> lessons = new ArrayList<Lesson>();
-    public String sender = "youshouldnotseethis";
+    private SharedPreferences togglePreferences;
+    private SharedPreferences.Editor togglePrefsEditor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -84,6 +87,22 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 
         parseData();
 
+        //Setup Preferences
+        togglePreferences = this.getSharedPreferences("togglePrefs",Context.MODE_PRIVATE);
+        togglePrefsEditor = togglePreferences.edit();
+
+        //Start automute if toggle is true
+        boolean saveToggle = togglePreferences.getBoolean("togglePrefs", false);
+        if (saveToggle == true)
+        {
+            MainActivity activity = (MainActivity)this;
+            Intent i = new Intent(activity, Mute.class);
+            Bundle b = new Bundle();
+            b.putParcelableArrayList("lessons", activity.getLessons());
+            i.putExtra("lessons", b);
+            this.startService(i);
+        }
+
         //Drawer listener open close setup
         drawerListener= new ActionBarDrawerToggle(this,drawerLayout,R.drawable.ic_navigation_drawer, R.string.drawer_open, R.string.drawer_close)
         {
@@ -103,6 +122,13 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         //Set Drawerlistener
         drawerLayout.setDrawerListener(drawerListener);
 
+    }
+
+    @Override
+    protected void onDestroy()
+    {
+        stopService(new Intent(MainActivity.this, Mute.class));
+        super.onStop();
     }
 
     private void parseData() {
@@ -143,7 +169,6 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
             e.printStackTrace();
         }
 
-        ///// /EXAMPLE
     }
 
     ArrayList<Lesson> getLessons() {

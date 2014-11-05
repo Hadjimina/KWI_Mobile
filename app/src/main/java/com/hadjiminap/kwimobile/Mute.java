@@ -14,6 +14,8 @@ import java.util.Iterator;
 
 public class Mute extends Service
 {
+    private AudioManager am;
+
     @Override
     public void onCreate()
     {
@@ -24,37 +26,39 @@ public class Mute extends Service
     public void onDestroy()
     {
         super.onDestroy();
-
-        AudioManager am;
         am= (AudioManager) getBaseContext().getSystemService(Context.AUDIO_SERVICE);
         am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+        Log.i("destry","destroyed");
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
-        Log.i("service","service");
         Bundle b = intent.getBundleExtra("lessons");
         ArrayList<Lesson> lessons = b.getParcelableArrayList("lessons");
 
         int day = getDay();
-        int les = getLesson()+1;
-        Log.i("les",String.valueOf(les));
-        Log.i("day",String.valueOf(day));
-        Log.i("time",String.valueOf(lessons.get(day).getTimeIndex()));
+        int les = getLesson();
 
         Iterator<Lesson> it_throughlessons = lessons.iterator();
 
         while (it_throughlessons.hasNext())
         {
             Lesson lesson = it_throughlessons.next();
+            Log.i("day",String.valueOf(lesson.getDay()));
+            Log.i("Time",String.valueOf(lesson.getTimeIndex()));
 
             if (lesson.getDay()==day&&lesson.getTimeIndex()==les)
             {
-                AudioManager am;
                 am= (AudioManager) getBaseContext().getSystemService(Context.AUDIO_SERVICE);
                 am.setRingerMode(AudioManager.RINGER_MODE_SILENT);
                 Log.i("silent","set to silent");
+                break;
+            }
+            else
+            {
+                am= (AudioManager) getBaseContext().getSystemService(Context.AUDIO_SERVICE);
+                am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
             }
 
 
@@ -79,23 +83,27 @@ public class Mute extends Service
 
         if (Calendar.MONDAY == today)
         {
-            day = 0;
-        }
-        if (Calendar.TUESDAY == today)
-        {
             day = 1;
         }
-        if (Calendar.WEDNESDAY == today)
+        else if (Calendar.TUESDAY == today)
         {
             day = 2;
         }
-        if (Calendar.THURSDAY == today)
+        else if (Calendar.WEDNESDAY == today)
         {
             day = 3;
         }
-        if (Calendar.FRIDAY == today)
+        else if (Calendar.THURSDAY == today)
         {
             day = 4;
+        }
+        else if (Calendar.FRIDAY == today)
+        {
+            day = 5;
+        }
+        else
+        {
+            day = 6;
         }
 
         return day;

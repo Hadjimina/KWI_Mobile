@@ -39,6 +39,8 @@ public class Timetable extends Fragment
     {
         View ret =  inflater.inflate(R.layout.timetable, null);
 
+
+
         //SETUP ARRAY LIST AND POPULATE IT
         ArrayList<Integer> vals = new ArrayList<Integer>();
         for (int w = 0;w<11;w++)
@@ -191,7 +193,6 @@ public class Timetable extends Fragment
             if (less_on.isCanceled())
             {
                 lessons[time][day].setTextColor(getResources().getColor(R.color.red));
-                //TODO: better mark deleted lesson
             }
         }
 
