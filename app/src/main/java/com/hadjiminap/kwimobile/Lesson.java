@@ -18,14 +18,14 @@ public class Lesson implements Parcelable {
     private int m_length;
     private ArrayList<String> m_rooms;
     private ArrayList<String> m_subject;
-    private boolean m_iscanceled;
+    private ArrayList<Integer> m_changes;
 
-    public Lesson(int timeIndex, ArrayList<String> rooms, ArrayList<String> subject, Integer day, boolean iscanceled, int length) {
+    public Lesson(int timeIndex, ArrayList<String> rooms, ArrayList<String> subject, Integer day, ArrayList<Integer> changes, int length) {
         m_timeIndex = timeIndex;
         m_rooms = rooms;
         m_subject = subject;
         m_day  = day;
-        m_iscanceled = iscanceled;
+        m_changes = changes;
         m_length = length;
     }
 
@@ -49,17 +49,18 @@ public class Lesson implements Parcelable {
         return m_length;
     }
 
-    public boolean isCanceled() {
-        return m_iscanceled;
+    public ArrayList<Integer> isChanged() {
+        return m_changes;
     }
 
     public static Lesson fromJSON(int time_index, JSONArray obj,String date) throws JSONException {
         ArrayList<String> rooms = new ArrayList<String>();
         ArrayList<String> subjects = new ArrayList<String>();
+        ArrayList<Integer> changes = new ArrayList<Integer>();
+
         String date_sub;
         int day,length = 0;
 
-        Boolean iscanceled = false;
 
         int calmo_int,caldi_int,calmi_int,caldo_int,calfr_int,date_int;
         boolean ok = false;
@@ -68,24 +69,29 @@ public class Lesson implements Parcelable {
 
        // Log.w("lengthclass",String.valueOf(length));
 
-        for (int j = 0; j < length; ++j) {
+        for (int j = 0; j < length; ++j)
+        {
+
             JSONObject room_subject = obj.getJSONObject(j);
             rooms.add(room_subject.getJSONArray("rooms").getString(0));
             subjects.add(room_subject.getString("subject"));
 
             if (room_subject.length()==3)
             {
-                //String canceled_string = String.valueOf(room_subject.getJSONObject("diff"));
                 String canceled_string = room_subject.getString("diff");
 
                 if (canceled_string.equals("-"))
                 {
-                    iscanceled = true;
+                    changes.add(2);
+                }
+                else if (canceled_string.equals("+"))
+                {
+                    changes.add(1);
                 }
             }
             else
             {
-                iscanceled = false;
+                changes.add(0);
             }
 
         }
@@ -133,10 +139,7 @@ public class Lesson implements Parcelable {
             day = 6;
         }
 
-
-
-
-        return new Lesson(time_index, rooms, subjects, day, iscanceled, length);
+        return new Lesson(time_index, rooms, subjects, day, changes, length);
     }
 
     public static Lesson fromBundle(Bundle b) {
@@ -144,10 +147,10 @@ public class Lesson implements Parcelable {
         int timeIndex = b.getInt("time-index");
         ArrayList<String> rooms = b.getStringArrayList("rooms");
         Integer day = b.getInt("day");
-        boolean iscanceled = b.getBoolean("cancelcheck");
+        ArrayList<Integer> changes = b.getIntegerArrayList("changecheck");
         Integer length = b.getInt("length");
 
-        return new Lesson(timeIndex, rooms, subject,day,iscanceled,length);
+        return new Lesson(timeIndex, rooms, subject,day,changes,length);
     }
 
     @Override
@@ -162,7 +165,7 @@ public class Lesson implements Parcelable {
         b.putStringArrayList("rooms", m_rooms);
         b.putStringArrayList("subject", m_subject);
         b.putInt("day", m_day);
-        b.putBoolean("cancelcheck", m_iscanceled);
+        b.putIntegerArrayList("changecheck", m_changes);
         b.putInt("length", m_length);
         parcel.writeBundle(b);
     }

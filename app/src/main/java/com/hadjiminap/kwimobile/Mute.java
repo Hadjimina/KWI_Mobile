@@ -64,8 +64,6 @@ public class Mute extends Service
 
         }
 
-
-
         return START_STICKY;
     }
 

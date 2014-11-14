@@ -12,25 +12,13 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 
 
 public class Timetable extends Fragment
 {
-    public String[] iteratorhandling = new String[20];
-    public String[] dates = new String [11];
-    public JSONObject[] days = new JSONObject[5];
-    public JSONArray[] daysarray = new JSONArray[5];
-    public JSONArray[] hours = new JSONArray[11];
-    public JSONObject[][] lektion = new JSONObject[11][3];
-    public String[] subject = new String [11];
-    public String[] roomnr = new String [11];
-    public JSONArray[] rooms = new JSONArray[11];
-    public int num,col,everyday,everydaytext,v,mondaydate,tuesdaydate,wednesdaydate,thursdaydate,fridaydate ;
+    String [] changes = new String[4];
     TableRow [] rows = new TableRow[11];
     public TextView[][] lessons = new TextView[11][6];
     private ArrayList<Lesson> less = new ArrayList<Lesson>();
@@ -39,8 +27,6 @@ public class Timetable extends Fragment
     {
         View ret =  inflater.inflate(R.layout.timetable, null);
 
-
-
         //SETUP ARRAY LIST AND POPULATE IT
         ArrayList<Integer> vals = new ArrayList<Integer>();
         for (int w = 0;w<11;w++)
@@ -48,7 +34,7 @@ public class Timetable extends Fragment
             vals.add(w);
         }
 
-
+        //Setup font
         Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "font.ttf");
 
 
@@ -108,7 +94,7 @@ public class Timetable extends Fragment
         MainActivity activity = (MainActivity) getActivity();
         less = activity.getLessons();
 
-
+        //cycle through all the lessons objects and add them to the timetable
         Iterator <Lesson> it_throughdays = less.iterator();
 
         while (it_throughdays.hasNext())
@@ -119,57 +105,64 @@ public class Timetable extends Fragment
             {
                 continue;
             }
-            //Log.w("time",String.valueOf(less_on.getTimeIndex()));
-            //Log.w("day",String.valueOf(less_on.getDay()));
 
             int time = less_on.getTimeIndex()+1;
             int day = less_on.getDay();
+            changes = move(less_on);
 
-            Log.w("length", String.valueOf(less_on.getLength()));
             if (less_on.getLength() == 1)
             {
+
                 lessons[time][day].setText(Html.fromHtml(
                         "<b>"
+                        +changes[0]
                         +less_on.getSubject().get(0)
                         +"</b><br/><small>"
                         +less_on.getRooms().get(0)
-                        +"</small>"
+                        +"</small></font>"
                 ));
 
             }
             else if (less_on.getLength() == 2)
             {
+
                 lessons[time][day].setText(Html.fromHtml(
                         "<b> "
+                       + changes[0]
                        + less_on.getSubject().get(0)
                        + " </b><small>"
                        + less_on.getRooms().get(0)
-                       + "</small>"
+                       + "</small></font>"
                        + "<br /><b> "
+                       + changes[1]
                        + less_on.getSubject().get(1)
                        + " </b><small>"
                        + less_on.getRooms().get(1)
-                       + "</small>"
+                       + "</small></font>"
                 ));
             }
             else if (less_on.getLength() == 3)
             {
+
                 lessons[time][day].setText(Html.fromHtml(
                          "<b> "
+                        +changes[0]
                         + less_on.getSubject().get(0)
                         + " </b><small>"
                         + less_on.getRooms().get(0)
-                        + "</small><br />"
-                        + "<b> "
+                        + "</small></font><br />"
+                        + "<b>"
+                        + changes[1]
                         + less_on.getSubject().get(1)
                         + " </b><small>"
                         + less_on.getRooms().get(1)
-                        + "</small><br />"
+                        + "</small></font><br />"
                         + "<b> "
+                        + changes[2]
                         + less_on.getSubject().get(2)
                         + " </b><small>"
                         + less_on.getRooms().get(2)
-                        + "</small>"
+                        + "</small></font>"
                 ));
 
             }
@@ -179,27 +172,61 @@ public class Timetable extends Fragment
                         "<b> "
                         + less_on.getSubject().get(0)
                         + "</b><br /><small>"
+                        + changes[0]
                         + less_on.getRooms().get(0)
+                        +"</font>"
                         + " "
+                        + changes[1]
                         + less_on.getRooms().get(1)
+                        +"</font>"
                         + " <br />"
+                        + changes[2]
                         + less_on.getRooms().get(2)
                         + " "
+                        +"</font>"
+                        + changes[3]
                         + less_on.getRooms().get(3)
-                        + "</small></p>"
+                        + "</small></font></p>"
                 ));
+
             }
 
-            if (less_on.isCanceled())
+        /*    if (less_on.isChanged() == 1)
             {
                 lessons[time][day].setTextColor(getResources().getColor(R.color.red));
             }
+            else if (less_on.isChanged() == 2)
+            {
+                lessons[time][day].setTextColor(getResources().getColor(R.color.green));
+            }*/
         }
 
 
         return ret;
     }
 
+    public String[] move(Lesson les)
+    {
+        String [] moveing = new String[7];
+
+        for (int runner = 0; runner < les.getLength(); runner++)
+        {
+            if (les.isChanged().get(runner)==2)
+            {
+                moveing[runner] = "<font color='#ff0000'>";
+            }
+            else if (les.isChanged().get(runner)==1)
+            {
+                moveing[runner] = "<font color='#5fbf00'>";
+            }
+            else
+            {
+                moveing[runner] = "<font color='#000000'>";
+            }
+        }
+
+        return moveing;
+    }
     public void onBackPressed()
     {
         //Don't do anything when back button is pressed

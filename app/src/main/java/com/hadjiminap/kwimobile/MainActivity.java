@@ -132,7 +132,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     }
 
     private void parseData() {
-        ///// EXAMPLE: new Lesson class
+
         String jdata = getData();
 
         try {
@@ -149,13 +149,31 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
                 if (day_json == null) {
                     // whut?? sometimes it's an array; whats the meaning of this?
                     JSONArray day_json_array = main_json.optJSONArray(key);
-                    // TODO: do whatever is necessary if it's an array
+
+                    for (int u = 0; u < day_json_array.length(); u ++)
+                    {
+                        String lesson_nr_str = Integer.toString(u);
+                        JSONArray room_subject_arr = day_json_array.getJSONArray(u);
+                        lessons.add(Lesson.fromJSON(u, room_subject_arr, key));
+                    }
+
+                  /*  Iterator<String> lesson_nr_iter = day_json_array.keys();
+
+
+                    while (lesson_nr_iter.hasNext())
+                    {
+                        String lesson_nr_str = lesson_nr_iter.next();
+
+                        int lesson_nr = Integer.parseInt(lesson_nr_str);
+                        JSONArray room_subject_arr = day_json.getJSONArray(lesson_nr_str);
+                        lessons.add(Lesson.fromJSON(lesson_nr, room_subject_arr, key));
+                    }*/
 
                 } else {
                     // as we would expect
                     Iterator<String> lesson_nr_iter = day_json.keys();
 
-
+                    Log.w("asdfasdfa", String.valueOf(day_json.keys()));
                     while (lesson_nr_iter.hasNext()) {
                         String lesson_nr_str = lesson_nr_iter.next();
 
