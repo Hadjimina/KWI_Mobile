@@ -32,7 +32,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-
+//All the sources I used are makred in the matura paper in Chpater 2 in the corresponding section
 public class MainActivity extends Activity implements AdapterView.OnItemClickListener
 {
 

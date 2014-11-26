@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.ToggleButton;
-
+//All the sources I used are makred in the matura paper in Chpater 2 in the corresponding section
 public class Settings extends Fragment
 {
     private TextView t1,t2;

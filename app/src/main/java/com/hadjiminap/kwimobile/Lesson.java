@@ -10,7 +10,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-
+//All the sources I used are makred in the matura paper in Chpater 2 in the corresponding section
 public class Lesson implements Parcelable {
 
     private int m_timeIndex;

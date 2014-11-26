@@ -11,7 +11,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
-
+//All the sources I used are makred in the matura paper in Chpater 2 in the corresponding section
 public class Mute extends Service
 {
     private AudioManager am;

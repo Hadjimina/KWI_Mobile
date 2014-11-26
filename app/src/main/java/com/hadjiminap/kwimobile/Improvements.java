@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
+//All the sources I used are makred in the matura paper in Chpater 2 in the corresponding section
 public class Improvements extends Fragment
 {
 

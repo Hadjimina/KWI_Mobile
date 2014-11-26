@@ -15,7 +15,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-
+//All the sources I used are makred in the matura paper in Chpater 2 in the corresponding section
 public class Timetable extends Fragment
 {
     String [] changes = new String[4];

@@ -43,7 +43,7 @@ import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
-
+//All the sources I used are makred in the matura paper in Chpater 2 in the corresponding section
 public class Login extends Activity
 {
     //Setup for remember me checkbox
