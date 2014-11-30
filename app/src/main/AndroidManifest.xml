@@ -21,7 +21,11 @@
         <activity android:label="@string/app_name" android:name=".MainActivity" />
 
         <service android:name=".Mute" android:exported="false"/>
+        <receiver  android:process=":remote" android:name=".Alarm"></receiver>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+
+    <uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
+
 </manifest>
