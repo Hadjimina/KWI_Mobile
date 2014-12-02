@@ -20,6 +20,7 @@ public class Lesson implements Parcelable {
     private ArrayList<String> m_subject;
     private ArrayList<Integer> m_changes;
 
+    //setup
     public Lesson(int timeIndex, ArrayList<String> rooms, ArrayList<String> subject, Integer day, ArrayList<Integer> changes, int length) {
         m_timeIndex = timeIndex;
         m_rooms = rooms;
@@ -29,6 +30,7 @@ public class Lesson implements Parcelable {
         m_length = length;
     }
 
+    //returning the correct values in each method
     public ArrayList<String> getRooms() {
         return m_rooms;
     }
@@ -53,6 +55,7 @@ public class Lesson implements Parcelable {
         return m_changes;
     }
 
+    //Get all the info needed when creating a json object
     public static Lesson fromJSON(int time_index, JSONArray obj,String date) throws JSONException {
         ArrayList<String> rooms = new ArrayList<String>();
         ArrayList<String> subjects = new ArrayList<String>();
@@ -63,11 +66,8 @@ public class Lesson implements Parcelable {
 
 
         int calmo_int,caldi_int,calmi_int,caldo_int,calfr_int,date_int;
-        boolean ok = false;
 
         length = obj.length();
-
-       // Log.w("lengthclass",String.valueOf(length));
 
         for (int j = 0; j < length; ++j)
         {
@@ -142,6 +142,7 @@ public class Lesson implements Parcelable {
         return new Lesson(time_index, rooms, subjects, day, changes, length);
     }
 
+    //creating lessons from bundle
     public static Lesson fromBundle(Bundle b) {
         ArrayList<String> subject = b.getStringArrayList("subject");
         int timeIndex = b.getInt("time-index");
@@ -153,11 +154,13 @@ public class Lesson implements Parcelable {
         return new Lesson(timeIndex, rooms, subject,day,changes,length);
     }
 
+    //because of implements parcelable
     @Override
     public int describeContents() {
         return 0;
     }
 
+    //save everything in a parccel
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         Bundle b = new Bundle();
@@ -170,9 +173,10 @@ public class Lesson implements Parcelable {
         parcel.writeBundle(b);
     }
 
-    public static final Parcelable.Creator<Lesson> CREATOR
-            = new Parcelable.Creator<Lesson>() {
-        public Lesson createFromParcel(Parcel in) {
+    public static final Parcelable.Creator<Lesson> CREATOR = new Parcelable.Creator<Lesson>()
+    {
+        public Lesson createFromParcel(Parcel in)
+        {
             return Lesson.fromBundle(in.readBundle());
         }
 

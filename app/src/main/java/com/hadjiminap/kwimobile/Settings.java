@@ -38,6 +38,7 @@ public class Settings extends Fragment
         t1.setTypeface(tf);
         t2.setTypeface(tf);
 
+        //Check if already ticked if so execute
         saveToggle = togglePreferences.getBoolean("togglePrefs", false);
         if (saveToggle == true)
         {
@@ -57,8 +58,9 @@ public class Settings extends Fragment
             public void onClick(View v)
             {
 
+                //Once clicked check if checked and start service accordingly
                 boolean on = ((ToggleButton) v).isChecked();
-                boolean check = isMyServiceRunning(getActivity().getApplicationContext());
+                boolean check = isServiceRunning(getActivity().getApplicationContext());
 
                 if (on)
                 {
@@ -93,8 +95,10 @@ public class Settings extends Fragment
         return ret;
     }
 
-    private boolean isMyServiceRunning(Context mContext)
+    private boolean isServiceRunning(Context mContext)
     {
+        //check if running
+        //Based on http://stackoverflow.com/questions/12891903/android-check-if-my-service-is-running-in-the-background as of December 2 2014
         ActivityManager manager = (ActivityManager) mContext.getSystemService(Context.ACTIVITY_SERVICE);
 
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE))

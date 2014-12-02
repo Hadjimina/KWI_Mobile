@@ -15,7 +15,6 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -102,7 +101,6 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
             i.putExtra("lessons", b);
             this.startService(i);
         }
-
         //Drawer listener open close setup
         drawerListener= new ActionBarDrawerToggle(this,drawerLayout,R.drawable.ic_navigation_drawer, R.string.drawer_open, R.string.drawer_close)
         {
@@ -142,38 +140,24 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
             while (main_iter.hasNext()) {
 
                 String key = main_iter.next();
-                Log.i("", key);
 
                 JSONObject day_json = main_json.optJSONObject(key);
 
-                if (day_json == null) {
-                    // whut?? sometimes it's an array; whats the meaning of this?
+                if (day_json == null)
+                {
                     JSONArray day_json_array = main_json.optJSONArray(key);
 
                     for (int u = 0; u < day_json_array.length(); u ++)
                     {
-                        String lesson_nr_str = Integer.toString(u);
                         JSONArray room_subject_arr = day_json_array.getJSONArray(u);
                         lessons.add(Lesson.fromJSON(u, room_subject_arr, key));
                     }
 
-                  /*  Iterator<String> lesson_nr_iter = day_json_array.keys();
 
-
-                    while (lesson_nr_iter.hasNext())
-                    {
-                        String lesson_nr_str = lesson_nr_iter.next();
-
-                        int lesson_nr = Integer.parseInt(lesson_nr_str);
-                        JSONArray room_subject_arr = day_json.getJSONArray(lesson_nr_str);
-                        lessons.add(Lesson.fromJSON(lesson_nr, room_subject_arr, key));
-                    }*/
-
-                } else {
-                    // as we would expect
+                } else
+                {
                     Iterator<String> lesson_nr_iter = day_json.keys();
 
-                    Log.w("asdfasdfa", String.valueOf(day_json.keys()));
                     while (lesson_nr_iter.hasNext()) {
                         String lesson_nr_str = lesson_nr_iter.next();
 

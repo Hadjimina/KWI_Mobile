@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-//All the sources I used are makred in the matura paper in Chpater 2 in the corresponding section
+//All the sources I used are makred in the matura paper in Chapter 2 in the corresponding section
 public class Improvements extends Fragment
 {
 
@@ -31,7 +31,9 @@ public class Improvements extends Fragment
         sendbug.setTypeface(tf);
         sendfeature.setTypeface(tf);
 
-        sendbug.setOnClickListener(new View.OnClickListener() {
+
+        sendbug.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v)
             {
@@ -39,9 +41,10 @@ public class Improvements extends Fragment
                 i.setType("message/rfc822");
                 i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"philipp.hadjimina@gmx.ch"});
                 i.putExtra(Intent.EXTRA_SUBJECT, "Fehler Meldung in KWI Mobile");
+
                 try
                 {
-                    startActivity(Intent.createChooser(i, "Email senden..."));
+                    startActivity(Intent.createChooser(i, "Email senden"));
                 }
                 catch (android.content.ActivityNotFoundException ex) {
                     Toast.makeText(getActivity(), "Es wurde kein Email client gefunden", Toast.LENGTH_LONG).show();
@@ -58,7 +61,7 @@ public class Improvements extends Fragment
                 i.putExtra(Intent.EXTRA_SUBJECT, "Wunsch für KWI Mobile");
                 try
                 {
-                    startActivity(Intent.createChooser(i, "Email senden..."));
+                    startActivity(Intent.createChooser(i, "Email senden"));
                 }
                 catch (android.content.ActivityNotFoundException ex) {
                     Toast.makeText(getActivity(), "Es wurde kein Email client gefunden", Toast.LENGTH_LONG).show();

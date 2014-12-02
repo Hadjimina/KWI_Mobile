@@ -1,12 +1,10 @@
 package com.hadjiminap.kwimobile;
 
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.media.AudioManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -50,9 +48,7 @@ public class Login extends Activity
     private CheckBox rememberme;
     private SharedPreferences loginPreferences,togglePreferences;
     private SharedPreferences.Editor loginPrefsEditor,togglePrefsEditor;
-    private Boolean saveLogin;
-    private AudioManager am;
-
+    private Boolean saveLogin,saveToggle;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -81,13 +77,6 @@ public class Login extends Activity
 
         //Set ProgressBar INVISIBLE
         progressBar.setVisibility(View.INVISIBLE);
-
-        //Check if mute is running
-        if (isMyServiceRunning(this.getApplicationContext()))
-        {
-            am= (AudioManager) getBaseContext().getSystemService(Context.AUDIO_SERVICE);
-            am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-        }
 
         //Set Font
         Typeface tf = Typeface.createFromAsset(getAssets(), "font.ttf");
@@ -166,21 +155,10 @@ public class Login extends Activity
             pwd.setText(loginPreferences.getString("password", ""));
             rememberme.setChecked(true);
         }
+
+
     }
 
-    private boolean isMyServiceRunning(Context mContext)
-    {
-        ActivityManager manager = (ActivityManager) mContext.getSystemService(Context.ACTIVITY_SERVICE);
-
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE))
-        {
-            if (Mute.class.getName().equals(service.service.getClassName()))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
 
     //OnClick
     public void OnLoginClick(View v)
@@ -191,6 +169,7 @@ public class Login extends Activity
         String passwd = password.getText().toString();
         Button login = (Button) findViewById(R.id.loginbtn);
 
+        //Check if valid credentials
         if (uname.equals("Benutzername")|| uname.equals(null))
         {
             Toast.makeText(Login.this, "Es wird ein Benutzername und ein Passwort benötigt", Toast.LENGTH_SHORT).show();
@@ -229,6 +208,7 @@ public class Login extends Activity
         }
     }
 
+    //Setup of postrequest
     public String postrequest () throws IOException
     {
         try {
@@ -269,22 +249,6 @@ public class Login extends Activity
 
             response.close();
 
-            //FOR TESTING ONLY
-           /*final String TAG = "Something";
-            if (serverResponseMessage.length() > 4000) {
-                Log.w(TAG, "sb.length = " + serverResponseMessage.length());
-                int chunkCount = serverResponseMessage.length() / 4000;     // integer division
-                for (int i = 0; i <= chunkCount; i++) {
-                    int max = 4000 * (i + 1);
-                    if (max >= serverResponseMessage.length()) {
-                        Log.w(TAG, "chunk " + i + " of " + chunkCount + ":" + serverResponseMessage.substring(4000 * i));
-                    } else {
-                        Log.w(TAG, "chunk " + i + " of " + chunkCount + ":" + serverResponseMessage.substring(4000 * i, max));
-                    }
-                }
-            } else {
-                Log.w(TAG, serverResponseMessage.toString());
-            }*/
             return serverResponseMessage;
         }
         catch (UnknownHostException e)
@@ -303,6 +267,7 @@ public class Login extends Activity
 
     }
 
+    //For postrequest
     private String getQuery(List<NameValuePair> params) throws UnsupportedEncodingException
     {
         StringBuilder result = new StringBuilder();
@@ -358,6 +323,7 @@ public class Login extends Activity
         @Override
         protected void onPostExecute(String data)
         {
+            //Check if there was an error
             if (data.equals("unknown host"))
             {
                 progressBar.setVisibility(View.INVISIBLE);

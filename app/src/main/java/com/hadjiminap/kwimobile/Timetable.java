@@ -37,8 +37,6 @@ public class Timetable extends Fragment
         //Setup font
         Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "font.ttf");
 
-
-
         // get text view
         TableLayout table = (TableLayout) ret.findViewById(R.id.tablelayout);
         for (int i = 0; i < table.getChildCount(); i++)
@@ -86,9 +84,6 @@ public class Timetable extends Fragment
             String txt = lessons[0][i].getText().toString();
             lessons[0][i].setText(Html.fromHtml("<b>" + txt + "</b>"));
         }
-
-
-
 
         //Receiving Lesson
         MainActivity activity = (MainActivity) getActivity();
@@ -191,20 +186,13 @@ public class Timetable extends Fragment
 
             }
 
-        /*    if (less_on.isChanged() == 1)
-            {
-                lessons[time][day].setTextColor(getResources().getColor(R.color.red));
-            }
-            else if (less_on.isChanged() == 2)
-            {
-                lessons[time][day].setTextColor(getResources().getColor(R.color.green));
-            }*/
         }
 
 
         return ret;
     }
 
+    //Setup colour
     public String[] move(Lesson les)
     {
         String [] moveing = new String[7];
@@ -227,6 +215,7 @@ public class Timetable extends Fragment
 
         return moveing;
     }
+
     public void onBackPressed()
     {
         //Don't do anything when back button is pressed
