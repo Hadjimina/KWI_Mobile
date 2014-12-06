@@ -30,12 +30,23 @@ public class Alarm extends BroadcastReceiver
         int day = getDay();
         int les = getLesson();
 
+        Log.i("day",String.valueOf(day));
+        Log.i("lesson",String.valueOf(les));
+
         Iterator<Lesson> it_throughlessons = lessons.iterator();
 
         while (it_throughlessons.hasNext())
         {
             Lesson lesson = it_throughlessons.next();
 
+            Log.i("lesson.getday",String.valueOf(lesson.getDay()));
+            Log.i("lesson.getday",String.valueOf(lesson.getTimeIndex()));
+
+            //Check if it is a Weekend day
+            if (lesson.getDay() == 6)
+            {
+                continue;
+            }
             if (lesson.getDay() == day && lesson.getTimeIndex() == les)
             {
                 am.setRingerMode(AudioManager.RINGER_MODE_SILENT);
