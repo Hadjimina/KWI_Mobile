@@ -37,16 +37,21 @@ public class Alarm extends BroadcastReceiver
 
         while (it_throughlessons.hasNext())
         {
-            Lesson lesson = it_throughlessons.next();
+            //Check if not school lesson
+            if (les == 42)
+            {
+                break;
+            }
 
-            Log.i("lesson.getday",String.valueOf(lesson.getDay()));
-            Log.i("lesson.getday",String.valueOf(lesson.getTimeIndex()));
+
+            Lesson lesson = it_throughlessons.next();
 
             //Check if it is a Weekend day
             if (lesson.getDay() == 6)
             {
                 continue;
             }
+
             if (lesson.getDay() == day && lesson.getTimeIndex() == les)
             {
                 am.setRingerMode(AudioManager.RINGER_MODE_SILENT);
@@ -57,7 +62,6 @@ public class Alarm extends BroadcastReceiver
                 am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
             }
         }
-        Log.i("mytag","received");
     }
 
     public void SetAlarm(Context context, Bundle bundle)
@@ -70,7 +74,15 @@ public class Alarm extends BroadcastReceiver
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, 0);
 
 
-        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000*60 , pi);
+        //Start instantly and afterward repeat every minute
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR));
+        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE));
+        calendar.set(Calendar.SECOND, calendar.get(Calendar.SECOND));
+
+
+        am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000*60 , pi);
 
     }
 
