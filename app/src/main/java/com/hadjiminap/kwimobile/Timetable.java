@@ -185,6 +185,34 @@ public class Timetable extends Fragment
                 ));
 
             }
+            else if (less_on.getLength()==5)
+            {
+                lessons[time][day].setText(Html.fromHtml(
+                        "<b> "
+                                + less_on.getSubject().get(0)
+                                + "</b><br /><small>"
+                                + changes[0]
+                                + less_on.getRooms().get(0)
+                                +"</font>"
+                                + " "
+                                + changes[1]
+                                + less_on.getRooms().get(1)
+                                +"</font>"
+                                + " <br />"
+                                + changes[2]
+                                + less_on.getRooms().get(2)
+                                + " "
+                                +"</font>"
+                                + changes[3]
+                                + less_on.getRooms().get(3)
+                                + "</font>"
+                                + " <br />"
+                                + changes[4]
+                                + less_on.getRooms().get(4)
+                                +"</small></font></p>"
+                ));
+
+            }
 
         }
 
