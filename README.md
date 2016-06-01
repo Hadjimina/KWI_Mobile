@@ -1,8 +1,10 @@
 KWI_Mobile
 ==========
-![alt-text-1](https://raw.githubusercontent.com/Hadjimina/KWI_Mobile/master/KWIfront.png "title-1") ![alt-text-2](https://raw.githubusercontent.com/Hadjimina/KWI_Mobile/master/table.png "title-2")
 
- ![alt-text-3](https://raw.githubusercontent.com/Hadjimina/KWI_Mobile/master/settings.png)
+| [![LoginScreen](https://raw.githubusercontent.com/Hadjimina/KWI_Mobile/master/KWIfront.png ] | [![Table](https://raw.githubusercontent.com/Hadjimina/KWI_Mobile/master/table.png)] | [![Settings](https://raw.githubusercontent.com/Hadjimina/KWI_Mobile/master/settings.png)] |
+|:---:|:---:|:---:|
+| hLoginScreen | Overview Table | Settings |
+
 This is an Android application which lets the students of the KWI in switzerland access their timetable data in real time.
 It was my Senior Project so the complete written documentation (45 Pages) can be found here : https://goo.gl/rBFZpq
 
